@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.15)
+project(Lab_2)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+add_executable(Lab_2
+    src/main.cpp
+)
+
+target_include_directories(Lab_2 PRIVATE
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/src
+)
+
+if(MSVC)
+    target_compile_options(Lab_2 PRIVATE /W4)
+else()
+    target_compile_options(Lab_2 PRIVATE -Wall -Wextra -Wpedantic)
+endif()
