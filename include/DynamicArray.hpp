@@ -21,3 +21,5 @@ class DynamicArray{
         void Set(int index, T value);
         void Resize(int newSize);
 };
+
+#include "DynamicArray.tpp"
