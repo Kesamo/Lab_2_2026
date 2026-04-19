@@ -21,9 +21,10 @@ private:
 public:
     LinkedList (T* items, int count); 
     LinkedList();
-    LinkedList (const LinkedList <T> & list); 
+    LinkedList (const LinkedList <T>& list); 
     ~LinkedList();
 
+    Node* GetNode(int index);
     T GetFirst();
     T GetLast(); 
     T Get(int index); 

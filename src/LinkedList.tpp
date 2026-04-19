@@ -56,6 +56,12 @@ int LinkedList<T>::GetLength(){
 template <class T>
 T LinkedList<T>::Get(int index){
     //TODO: Проверка индекса
+    return GetNode(index)->data;
+}
+
+template <class T>
+typename LinkedList<T>::Node* LinkedList<T>::GetNode(int index){
+    //TODO:Проверка индекса
     Node* current;
     if (index < size / 2) {
         current = head;
@@ -68,7 +74,7 @@ T LinkedList<T>::Get(int index){
             current = current->prev;
         }
     }
-    return current->data;
+    return current
 }
 
 template <class T>
@@ -108,16 +114,13 @@ void LinkedList<T>::insertAt(T item, int index){
     if(index == 0){
         prepend(item);
     }
+
     if(index == size){
         append(item);
     }
 
     Node* new_node = new Node(item);
-    Node* current = head;
-
-    for(int i = 0; i < index; ++i){
-        current = current->next;
-    }
+    Node* current = GetNode(index);
 
     new_node->prev = current->prev;
     new_node->next = current;
@@ -131,11 +134,7 @@ template <class T>
 LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex){
     /TODO: Проверка
     LinkedList<T>* SubList = new LinkedList<T>();
-    Node* current = head;
-
-    for(int i = 0; i < startIndex; ++i){
-        current = current->next;
-    }
+    Node* current = GetNode(startIndex);
 
     for(int i = startIndex; i <= endIndex; ++i){
         SubList->append(current->data);
@@ -145,4 +144,16 @@ LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex){
     return SubList;
 }
 
+template <class T>
+LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list){
+    //TODO: Проверка на nullptr
+    LinkedList<T>* new_list = new LinkedList<T>(*this);
+    Node* current = list->head;
 
+    while(current != nullptr){
+        new_list->append(current->data);
+        current = current->next;
+    }
+    
+    return new_list;
+}
