@@ -62,3 +62,15 @@ void DynamicArray<T>::Set(int index, T value){
     //TODO: Добавить проверку индекса
     data[index] = value;
 }
+
+template <class T>
+void DynamicArray<T>::Resize(int newSize) {
+    T* newData = new T[newSize];
+    int count = (newSize < array_size) ? newSize : array_size;
+    for (int i = 0, i < count, ++i){
+        newData[i] = data[i];
+    }
+    delete data;
+    data = newData;
+    size = newSize;
+}
