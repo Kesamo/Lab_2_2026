@@ -74,3 +74,8 @@ void DynamicArray<T>::Resize(int newSize) {
     data = newData;
     size = newSize;
 }
+
+template <class T>
+T& DynamicArray<T>::operator[](int index) {
+    return data[index];
+}

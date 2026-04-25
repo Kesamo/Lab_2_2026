@@ -78,3 +78,8 @@ Sequence<T>* SequenceArray<T>::Concat(Sequence<T>* list){
 
     return new SequenceArray<T>(buffer, len1 + len2);
 }
+
+template <class T>
+T& SequenceArray<T>::operator[](int index) {
+    return (*array)[index];
+}

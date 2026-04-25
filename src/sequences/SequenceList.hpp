@@ -1,17 +1,17 @@
 #pragma once
-#include "DynamicArray.hpp"
+#include "LinkedList.hpp"
 #include "Sequence.hpp"
 
 template <class T>
-class SequenceArray : public Sequence<T>{
+class SequenceList : public Sequence<T>{
     private:
-    DynamicArray<T>* array;
-    
-    SequenceArray();
-    SequenceArray(T* item, int count);
-    SequenceArray(const SequenceArray<T>& other);
+    LinkedList<T>* Llist;
 
-    ~SequenceArray();
+    SequenceList();
+    SequenceList(T* items, int count);
+    SequenceList(const SequenceList<T>& other);
+
+    ~SequenceList();
 
     public:
 
@@ -25,8 +25,6 @@ class SequenceArray : public Sequence<T>{
     Sequence<T>* prepend(T value) override;
     Sequence<T>* insertAt(T item, int index) override;
     Sequence<T>* Concat(Sequence<T> *list) override;
-
-    T& operator[](int index);
 };
 
-#include "SequenceArray.tpp"
+#include "SequenceList.tpp"

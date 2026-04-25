@@ -20,6 +20,8 @@ class DynamicArray{
         int GetSize();
         void Set(int index, T value);
         void Resize(int newSize);
+
+        T& operator [](int index);
 };
 
 #include "DynamicArray.tpp"
