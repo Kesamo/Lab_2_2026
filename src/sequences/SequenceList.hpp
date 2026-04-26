@@ -5,7 +5,7 @@
 template <class T>
 class SequenceList : public Sequence<T>{
     private:
-    LinkedList<T>* Llist;
+    LinkedList<T>* list;
 
     SequenceList();
     SequenceList(T* items, int count);
@@ -24,7 +24,7 @@ class SequenceList : public Sequence<T>{
     Sequence<T>* append(T value) override;
     Sequence<T>* prepend(T value) override;
     Sequence<T>* insertAt(T item, int index) override;
-    Sequence<T>* Concat(Sequence<T> *list) override;
+    Sequence<T>* Concat(Sequence<T> *seq) override;
 };
 
 #include "SequenceList.tpp"

@@ -9,6 +9,7 @@ add_executable(lab2_app src/main.cpp)
 
 #add_subdirectory(lib/PDCurses)
 add_subdirectory(lib/googletest)
+add_subdirectory(lib/ftxui)
 add_subdirectory(src/core)
 
 target_link_libraries(lab2_app PRIVATE
