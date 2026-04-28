@@ -9,7 +9,7 @@ template <class T>
 SequenceArray<T>::SequenceArray(T* item, int count) : array(new DynamicArray<T>(item, count)) {}
 
 template <class T>
-SequenceArray<T>::SequenceArray(const SequenceArray<T>& other) : array(new DynamicArray<t>(*other.array)){}
+SequenceArray<T>::SequenceArray(const SequenceArray<T>& other) : array(new DynamicArray<T>(*other.array)){}
 
 template <class T>
 SequenceArray<T>::~SequenceArray() { delete array; }
@@ -35,7 +35,7 @@ int SequenceArray<T>::GetLength() const {
 }
 
 template <class T>
-Sequence<T>* SequenceArray<T>::append(T value) {
+SequenceArray<T>* SequenceArray<T>::appendInternal(T value){
     int size = array->GetSize();
     array->Resize(size + 1);
     array->Set(size,value);
@@ -43,10 +43,10 @@ Sequence<T>* SequenceArray<T>::append(T value) {
 }
 
 template <class T>
-Sequence<T>* SequenceArray<T>::prepend(T value) {
+SequenceArray<T>* SequenceArray<T>::prependInternal(T value){
     int size = array->GetSize();
     array->Resize(size + 1);
-    for (int i = size, i > 0, --i){
+    for (int i = size; i > 0; --i){
         array->Set(i, array->Get(i - 1));
     }
     array->Set(0,value);
@@ -54,10 +54,10 @@ Sequence<T>* SequenceArray<T>::prepend(T value) {
 }
 
 template <class T>
-Sequence<T>* SequenceArray<T>::insertAt(T item, int index){
+SequenceArray<T>* SequenceArray<T>::insertAtInternal(T item, int index){
     int size = array->GetSize();
     array->Resize(size + 1);
-    for (int i = size, i > index; --i){
+    for (int i = size; i > index; --i){
         array->Set(i, array->Get(i - 1));
     }
     array->Set(index, item);
@@ -65,21 +65,40 @@ Sequence<T>* SequenceArray<T>::insertAt(T item, int index){
 }
 
 template <class T>
-Sequence<T>* SequenceArray<T>::Concat(Sequence<T>* list){
-    int len1 = GetLength();
-    int len2 = list->GetLength();
-    T* buffer = new T[len1 + len2];
-    for (int i = 0; i < len1; ++i){
-        buffer[i] = array->Get(i);
+Sequence<T>* SequenceArray<T>::Concat(Sequence<T>* list) const{
+    SequenceArray<T>* res = Construct();
+    for (int i = 0; i < this->GetLength(); ++i){
+        res->append(this->Get(i));
     }
-    for (int i = 0; i < len2; ++i){
-        buffer[i + len1] = list->Get(i);
+    for (int i = 0; i < list->GetLength(); ++i){
+        res->append(list->Get(i));
     }
-
-    return new SequenceArray<T>(buffer, len1 + len2);
+    return res;
 }
 
 template <class T>
-T& SequenceArray<T>::operator[](int index) {
-    return (*array)[index];
+Sequence<T>* SequenceArray<T>::append(T item){
+    return Instance()->appendInternal(item);
+}
+
+template <class T>
+Sequence<T>* SequenceArray<T>::prepend(T item){
+    return Instance()->prependInternal(item);
+}
+
+template <class T>
+Sequence<T>* SequenceArray<T>::insertAt(T item, int index){
+    return Instance()->insertAtInternal(item, index);
+}
+
+
+template <class T>
+Sequence<T>* SequenceArray<T>::GetSubsequence(int startIndex, int endIndex) const {
+    SequenceArray<T>* res = Construct();
+
+    for (int i = startIndex; i <= endIndex; ++i) {
+        res->append(res->Get(i));
+    }
+    
+    return res;
 }

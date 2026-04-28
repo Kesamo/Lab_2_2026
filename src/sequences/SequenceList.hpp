@@ -4,7 +4,7 @@
 
 template <class T>
 class SequenceList : public Sequence<T>{
-    private:
+    protected:
     LinkedList<T>* list;
 
     SequenceList();

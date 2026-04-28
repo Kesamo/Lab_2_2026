@@ -5,8 +5,8 @@
 template<class T>
 class DynamicArray{
     private:
-        int array_size;
-        T* data;
+        int array_size = 0;
+        T* data = nullptr;
 
     public:
         DynamicArray();
@@ -22,6 +22,7 @@ class DynamicArray{
         void Resize(int newSize);
 
         T& operator [](int index);
+        const T& operator[](int index) const;
 };
 
 #include "DynamicArray.tpp"

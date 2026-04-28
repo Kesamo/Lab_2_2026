@@ -4,16 +4,24 @@
 
 template <class T>
 class SequenceArray : public Sequence<T>{
-    private:
+    protected:
     DynamicArray<T>* array;
     
+    SequenceArray<T>* appendInternal(T item);
+    SequenceArray<T>* prependInternal(T item);
+    SequenceArray<T>* insertAtInternal(T item, int index);
+    
+    public:
+
     SequenceArray();
     SequenceArray(T* item, int count);
     SequenceArray(const SequenceArray<T>& other);
 
     ~SequenceArray();
-
-    public:
+    
+    virtual SequenceArray<T>* Instance() = 0;
+    virtual SequenceArray<T>* Clone() const = 0;
+    virtual SequenceArray<T>* Construct() const = 0;
 
     T GetFirst() const override;
     T GetLast() const override;
@@ -24,9 +32,8 @@ class SequenceArray : public Sequence<T>{
     Sequence<T>* append(T value) override;
     Sequence<T>* prepend(T value) override;
     Sequence<T>* insertAt(T item, int index) override;
-    Sequence<T>* Concat(Sequence<T> *list) override;
-
-    T& operator[](int index);
+    Sequence<T>* Concat(Sequence<T> *list) const override;
 };
 
 #include "SequenceArray.tpp"
+

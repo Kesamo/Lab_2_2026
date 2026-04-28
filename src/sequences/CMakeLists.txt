@@ -1,0 +1,2 @@
+add_library(lab2_sequences INTERFACE)
+target_include_directories(lab2_sequences INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

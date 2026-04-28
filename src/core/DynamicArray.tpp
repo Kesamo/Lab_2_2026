@@ -2,9 +2,11 @@
 #include <stdexcept> 
 #include "DynamicArray.hpp"
 
+template <class T> 
+DynamicArray<T>::DynamicArray() : array_size(0), data(nullptr) {}
 
 template <class T>
-DynamicArray<T>::DynamicArray(T* items, int count) {
+DynamicArray<T>::DynamicArray(T* items, int count) : array_size(count) {
     
     if (count == 0) {
         data = nullptr;
@@ -18,7 +20,7 @@ DynamicArray<T>::DynamicArray(T* items, int count) {
 }
 
 template <class T>
-DynamicArray<T>::DynamicArray(int size) {
+DynamicArray<T>::DynamicArray(int size) : array_size(size){
     array_size = size;
 
     if (array_size == 0) {
@@ -30,14 +32,15 @@ DynamicArray<T>::DynamicArray(int size) {
 }
 
 template <class T>
-DynamicArray<T>::DynamicArray(const DynamicArray<T>& dynamicArray) {
+DynamicArray<T>::DynamicArray(const DynamicArray<T>& dynamicArray) : array_size(dynamicArray.array_size){
     if (array_size == 0){
+        data = nullptr;
         return;
     }
 
     data = new T[array_size];
-    for (int i = 0; i < array_size, ++i) {
-
+    for (int i = 0; i < array_size; ++i) {
+        data[i] = dynamicArray.data[i];
     }
 }
 
@@ -67,15 +70,20 @@ template <class T>
 void DynamicArray<T>::Resize(int newSize) {
     T* newData = new T[newSize];
     int count = (newSize < array_size) ? newSize : array_size;
-    for (int i = 0, i < count, ++i){
+    for (int i = 0; i < count; ++i){
         newData[i] = data[i];
     }
-    delete data;
+    delete[] data;
     data = newData;
-    size = newSize;
+    array_size = newSize;
 }
 
 template <class T>
 T& DynamicArray<T>::operator[](int index) {
     return data[index];
+}
+
+template <class T>
+const T& DynamicArray<T>::operator[](int index) const {
+        return data[index];
 }

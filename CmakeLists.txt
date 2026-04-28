@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(Lab_2 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 26)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
@@ -10,8 +10,11 @@ add_executable(lab2_app src/main.cpp)
 #add_subdirectory(lib/PDCurses)
 add_subdirectory(lib/googletest)
 add_subdirectory(lib/ftxui)
+
 add_subdirectory(src/core)
+add_subdirectory(src/sequences)
 
 target_link_libraries(lab2_app PRIVATE
     lab2_core
+    lab2_sequences
 )
