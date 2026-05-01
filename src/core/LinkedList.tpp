@@ -132,7 +132,7 @@ void LinkedList<T>::insertAt(T item, int index){
 
 template <class T>
 LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex){
-    /TODO: Проверка
+    //TODO: Проверка
     LinkedList<T>* SubList = new LinkedList<T>();
     Node* current = GetNode(startIndex);
 

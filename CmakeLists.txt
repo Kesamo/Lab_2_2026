@@ -13,8 +13,17 @@ add_subdirectory(lib/ftxui)
 
 add_subdirectory(src/core)
 add_subdirectory(src/sequences)
+add_subdirectory(src/sequences/SequenceArray)
+add_subdirectory(src/sequences/SequenceList)
 
 target_link_libraries(lab2_app PRIVATE
+    ftxui::dom
+    ftxui::screen
+    ftxui::component
     lab2_core
     lab2_sequences
+    lab2_seqarray
+    lab2_seqlist
 )
+
+target_compile_definitions(lab2_app PRIVATE _WIN32_WINNT=0x0600)

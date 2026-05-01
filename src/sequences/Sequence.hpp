@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <stdexcept>
+#include "../utils/IEnumerator.hpp"
 
 template <class T>
 class Sequence{
@@ -17,6 +18,8 @@ class Sequence{
         virtual Sequence<T>* prepend(T item) = 0; 
         virtual Sequence<T>* insertAt(T item, int index) = 0;
         virtual Sequence<T>* Concat(Sequence <T> *list) const = 0;
+
+        virtual IEnumerator<T>* GetEnumerator() const= 0;
 
         // virtual Sequence<T>* Map(T2 (*)(T)) const = 0; 
         // virtual Sequence<T>* Where(bool (*)(T)) const = 0;

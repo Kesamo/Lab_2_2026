@@ -16,8 +16,8 @@ class DynamicArray{
 
         ~DynamicArray();
 
-        T Get(int index);
-        int GetSize();
+        T Get(int index) const;
+        int GetSize() const;
         void Set(int index, T value);
         void Resize(int newSize);
 

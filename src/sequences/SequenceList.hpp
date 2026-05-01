@@ -1,6 +1,7 @@
 #pragma once
 #include "LinkedList.hpp"
 #include "Sequence.hpp"
+#include "EnumeratorSequence.hpp"
 
 template <class T>
 class SequenceList : public Sequence<T>{
@@ -14,6 +15,8 @@ class SequenceList : public Sequence<T>{
     ~SequenceList();
 
     public:
+
+    IEnumerator<T>* GetEnumerator() override;
 
     T GetFirst() const override;
     T GetLast() const override;

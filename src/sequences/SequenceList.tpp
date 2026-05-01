@@ -61,6 +61,11 @@ Sequence<T>* SequenceList<T>::insertAt(T item, int index){
 }
 
 template <class T>
+IEnumerator<T>* SequenceList<T>::GetEnumerator(){
+    return new EnumeratorSequence<T>(this);
+}
+
+template <class T>
 Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq){
     SequenceList<T>* res = SequenceList<T>(*this);
     for (int i = 0; i < seq->GetLength(); ++i){

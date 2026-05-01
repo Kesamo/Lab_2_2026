@@ -10,6 +10,7 @@ DynamicArray<T>::DynamicArray(T* items, int count) : array_size(count) {
     
     if (count == 0) {
         data = nullptr;
+        array_size = 0;
         return;
     }
     
@@ -50,13 +51,13 @@ DynamicArray<T>::~DynamicArray() {
 }
 
 template <class T>
-T DynamicArray<T>::Get(int index) {
+T DynamicArray<T>::Get(int index) const {
     //TODO: Добавить проверку индекса
     return data[index];
 }
 
 template <class T>
-int DynamicArray<T>::GetSize(){
+int DynamicArray<T>::GetSize() const {
     return array_size;
 }
 

@@ -1,5 +1,5 @@
 #include <cstddef>
-#include <stdexcept> 
+#include <stdexcept>
 #include "SequenceArray.hpp"
 
 template <class T>
@@ -91,6 +91,10 @@ Sequence<T>* SequenceArray<T>::insertAt(T item, int index){
     return Instance()->insertAtInternal(item, index);
 }
 
+template <class T>
+IEnumerator<T>* SequenceArray<T>::GetEnumerator() const{
+    return new EnumeratorSequence<T>(this);
+}
 
 template <class T>
 Sequence<T>* SequenceArray<T>::GetSubsequence(int startIndex, int endIndex) const {
