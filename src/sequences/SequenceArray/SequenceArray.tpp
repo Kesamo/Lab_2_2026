@@ -56,6 +56,9 @@ SequenceArray<T>* SequenceArray<T>::prependInternal(T value){
 template <class T>
 SequenceArray<T>* SequenceArray<T>::insertAtInternal(T item, int index){
     int size = array->GetSize();
+    if (index < 0 || index > size) {
+        THROW(IndexOutOfRangeException, ("Позиция вставки " + std::to_string(index) + " недопустима. Допустимый диапазон: " + std::to_string(size)).c_str());
+    }
     array->Resize(size + 1);
     for (int i = size; i > index; --i){
         array->Set(i, array->Get(i - 1));

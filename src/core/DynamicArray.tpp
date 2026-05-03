@@ -2,6 +2,7 @@
 #include <stdexcept> 
 #include "DynamicArray.hpp"
 
+
 template <class T> 
 DynamicArray<T>::DynamicArray() : array_size(0), data(nullptr) {}
 
@@ -52,7 +53,9 @@ DynamicArray<T>::~DynamicArray() {
 
 template <class T>
 T DynamicArray<T>::Get(int index) const {
-    //TODO: Добавить проверку индекса
+    if (index < 0 || index >= array_size){
+        THROW(IndexOutOfRangeException,("Индекс " + std::to_string(index) + " выходит за границы массива : " + std::to_string(array_size)).c_str());
+    }
     return data[index];
 }
 
@@ -63,12 +66,17 @@ int DynamicArray<T>::GetSize() const {
 
 template <class T>
 void DynamicArray<T>::Set(int index, T value){
-    //TODO: Добавить проверку индекса
+    if (index < 0 || index >= array_size){
+        THROW(IndexOutOfRangeException,("Индекс " + std::to_string(index) + " выходит за границы массива : " + std::to_string(array_size)).c_str());
+    }
     data[index] = value;
 }
 
 template <class T>
 void DynamicArray<T>::Resize(int newSize) {
+    if (newSize < 0) {
+        THROW(InvalidArgumentException, "Нельзя изменить размер на отрицательное значение");
+    }
     T* newData = new T[newSize];
     int count = (newSize < array_size) ? newSize : array_size;
     for (int i = 0; i < count; ++i){

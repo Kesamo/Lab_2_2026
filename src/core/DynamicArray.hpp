@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <cstddef>
 #include "ArrayIterator.hpp"
+#include "../utils/Exceptions.hpp"
 
 template<class T>
 class DynamicArray : public IEnumerable<T>{

@@ -1,6 +1,7 @@
 #pragma once
 #include "DynamicArray.hpp"
 #include "Sequence.hpp"
+#include "../utils/Exceptions.hpp"
 
 template <class T>
 class SequenceArray : public Sequence<T>{
@@ -41,4 +42,3 @@ class SequenceArray : public Sequence<T>{
 };
 
 #include "SequenceArray.tpp"
-
