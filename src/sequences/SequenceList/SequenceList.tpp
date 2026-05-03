@@ -5,7 +5,7 @@ template <class T>
 SequenceList<T>::SequenceList() : list(new LinkedList<T>()) {}
 
 template <class T>
-SequenceList<T>::SequenceList(T* items, int count) : list(new LinkedList(T* items, count)) {}
+SequenceList<T>::SequenceList(T* items, int count) : list(new LinkedList( items, count)) {}
 
 template <class T>
 SequenceList<T>::SequenceList(const SequenceList<T>& other) : list(new LinkedList<T>(*other.list)) {}

@@ -1,9 +1,10 @@
 #pragma once
 #include <stdexcept>
 #include <cstddef>
+#include "ArrayIterator.hpp"
 
 template<class T>
-class DynamicArray{
+class DynamicArray : public IEnumerable<T>{
     private:
         int array_size = 0;
         T* data = nullptr;
@@ -15,6 +16,14 @@ class DynamicArray{
         DynamicArray(const DynamicArray<T> & dynamicArray);
 
         ~DynamicArray();
+
+        IEnumerator<T>* GetEnumerator() const override;
+
+        ArrayIterator<T> begin();
+        ArrayIterator<T> end();
+
+        ArrayIterator<T> begin() const;
+        ArrayIterator<T> end() const;
 
         T Get(int index) const;
         int GetSize() const;

@@ -74,7 +74,7 @@ typename LinkedList<T>::Node* LinkedList<T>::GetNode(int index){
             current = current->prev;
         }
     }
-    return current
+    return current;
 }
 
 template <class T>

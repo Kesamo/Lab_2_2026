@@ -93,15 +93,26 @@ Sequence<T>* SequenceArray<T>::insertAt(T item, int index){
 
 template <class T>
 IEnumerator<T>* SequenceArray<T>::GetEnumerator() const{
-    return new EnumeratorSequence<T>(this);
+    return array->GetEnumerator();
 }
+
+template <class T>
+ArrayIterator<T> SequenceArray<T>::begin() const {
+    return array->begin();
+}
+
+template <class T>
+ArrayIterator<T> SequenceArray<T>::end() const {
+    return array->end();
+}
+
 
 template <class T>
 Sequence<T>* SequenceArray<T>::GetSubsequence(int startIndex, int endIndex) const {
     SequenceArray<T>* res = Construct();
 
     for (int i = startIndex; i <= endIndex; ++i) {
-        res->append(res->Get(i));
+        res->append(this->Get(i));
     }
     
     return res;

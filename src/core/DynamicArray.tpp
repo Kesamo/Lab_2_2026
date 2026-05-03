@@ -88,3 +88,29 @@ template <class T>
 const T& DynamicArray<T>::operator[](int index) const {
         return data[index];
 }
+
+template <class T>
+IEnumerator<T>* DynamicArray<T>::GetEnumerator() const {
+    return new ArrayIterator<T>(data, array_size, -1);
+}
+
+template <class T>
+ArrayIterator<T> DynamicArray<T>::begin() {
+    return ArrayIterator<T>(data, array_size, 0);
+}
+
+template <class T>
+ArrayIterator<T> DynamicArray<T>::begin() const {
+    return ArrayIterator<T>(data, array_size, 0);
+}
+
+template <class T>
+ArrayIterator<T> DynamicArray<T>::end() {
+    return ArrayIterator<T>(data, array_size, array_size);
+}
+
+
+template <class T>
+ArrayIterator<T> DynamicArray<T>::end() const {
+    return ArrayIterator<T>(data, array_size, array_size);
+}

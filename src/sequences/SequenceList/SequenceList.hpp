@@ -1,7 +1,6 @@
 #pragma once
 #include "LinkedList.hpp"
 #include "Sequence.hpp"
-#include "EnumeratorSequence.hpp"
 
 template <class T>
 class SequenceList : public Sequence<T>{

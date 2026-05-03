@@ -1,7 +1,6 @@
 #pragma once
 #include "DynamicArray.hpp"
 #include "Sequence.hpp"
-#include "EnumeratorSequence.hpp"
 
 template <class T>
 class SequenceArray : public Sequence<T>{
@@ -25,6 +24,9 @@ class SequenceArray : public Sequence<T>{
     virtual SequenceArray<T>* Construct() const = 0;
 
     IEnumerator<T>* GetEnumerator() const override;
+
+    ArrayIterator<T> begin() const;
+    ArrayIterator<T> end() const;
 
     T GetFirst() const override;
     T GetLast() const override;
