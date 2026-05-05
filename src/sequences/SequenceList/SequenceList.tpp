@@ -14,6 +14,24 @@ template <class T>
 SequenceList<T>::~SequenceList() {delete list;}
 
 template <class T>
+SequenceList<T>* SequenceList<T>::appendInternal(T item){
+    list->append(item);
+    return this;
+}
+
+template <class T>
+SequenceList<T>* SequenceList<T>::prependInternal(T item){
+    list->prepend(item);
+    return this;
+}
+
+template <class T>
+SequenceList<T>* SequenceList<T>::insertAtInternal(T item, int index){
+    list->insertAt(item, index);
+    return this;
+}
+
+template <class T>
 T SequenceList<T>::GetFirst() const {
     return list->GetFirst();
 }
@@ -35,29 +53,26 @@ int SequenceList<T>::GetLength() const {
 
 template <class T>
 Sequence<T>* SequenceList<T>::GetSubsequence(int startIndex, int endIndex) const {
-    SequenceList<T>* res = SequenceList<T>();
+    SequenceList<T>* res = Construct();
     for (int i = startIndex; i <= endIndex; ++i){
-            res->append(list->Get(i));
+            res->appendInternal(list->Get(i));
     }
     return res;
 }
 
 template <class T>
 Sequence<T>* SequenceList<T>::append(T value){
-    list->append(value);
-    return this;
+    return Instance()->appendInternal(value);
 }
 
 template <class T>
 Sequence<T>* SequenceList<T>::prepend(T value){
-    list->prepend(value);
-    return this;
+    return Instance()->prependInternal(value);
 }
 
 template <class T>
 Sequence<T>* SequenceList<T>::insertAt(T item, int index){
-    list->insertAt(item, index);
-    return this;
+    return Instance()->insertAtInternal(item, index);
 }
 
 template <class T>
@@ -67,9 +82,12 @@ IEnumerator<T>* SequenceList<T>::GetEnumerator(){
 
 template <class T>
 Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq){
-    SequenceList<T>* res = SequenceList<T>(*this);
+    SequenceList<T>* res = Construct();
+    for (int i = 0; i < GetLength(); ++i){
+        res->appendInternal(Get(i));
+    }
     for (int i = 0; i < seq->GetLength(); ++i){
-        res->list->append(seq->Get(i));
+        res->appendInternal(seq->Get(i));
     }
     return res;
 }

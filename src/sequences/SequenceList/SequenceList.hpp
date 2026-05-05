@@ -7,14 +7,22 @@ class SequenceList : public Sequence<T>{
     protected:
     LinkedList<T>* list;
 
+    SequenceList<T>* appendInternal(T item);
+    SequenceList<T>* prependInternal(T item);
+    SequenceList<T>* insertAtInternal(T item, int index);
+
+    
+    public:
     SequenceList();
     SequenceList(T* items, int count);
     SequenceList(const SequenceList<T>& other);
 
     ~SequenceList();
 
-    public:
-
+    virtual SequenceList<T>* Instance() = 0;
+    virtual SequenceList<T>* Clone() const = 0;
+    virtual SequenceList<T>* Construct() const = 0;
+    
     IEnumerator<T>* GetEnumerator() override;
 
     T GetFirst() const override;
