@@ -157,3 +157,28 @@ LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list){
     
     return new_list;
 }
+
+template <class T>
+IEnumerator<T>* LinkedList<T>::GetEnumerator() const {
+    return new ListIterator(head);
+}
+
+template <class T>
+ListIterator<T> LinkedList<T>::begin(){
+    
+}
+
+template <class T>
+ListIterator<T> LinkedList<T>::end(){
+
+}
+
+template <class T>
+ListIterator<T> LinkedList<T>::begin() const{
+
+}
+
+template <class T>
+ListIterator<T> LinkedList<T>::end() const{
+
+}

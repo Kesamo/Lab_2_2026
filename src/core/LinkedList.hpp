@@ -1,10 +1,12 @@
 #pragma once
 #include <stdexcept>
 #include <cstddef>
+#include "ListIterator.hpp"
 
 template <class T>
 class LinkedList
 {
+    friend class ListIterator<T>;
 private:
     struct Node{
         T data;
@@ -16,13 +18,19 @@ private:
 
     Node* head;
     Node* tail;
-    int size;
-
 public:
     LinkedList (T* items, int count); 
     LinkedList();
     LinkedList (const LinkedList <T>& list); 
     ~LinkedList();
+
+    IEnumerator<T>* GetEnumerator() const override;
+
+    ListIterator<T> begin();
+    ListIterator<T> end();
+
+    ListIterator<T> begin() const;
+    ListIterator<T> end() const;
 
     Node* GetNode(int index);
     T GetFirst();
