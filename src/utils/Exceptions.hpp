@@ -2,22 +2,23 @@
 #include<exception>
 #include <string>
 #include <sstream>
+#include <format>
 
 class Exception : public std::exception {
 private:
     const char* message;
     const char* files;
     const char* function;
-    std::string full_msg;
+    const char* full_msg;
 public:
     Exception(const char* msg, const char* file, const char* func) : message(msg), files(file), function(func) {
-        full_msg = std::string(func) + "() " + file + " :: " + msg;
+        auto full_msg = std::format("{}() {}::{}", func, file, msg);
     }
     
     ~Exception() noexcept override = default;
 
     const char* what() const noexcept override {
-      return full_msg.c_str();
+      return full_msg;
     }
 
 };

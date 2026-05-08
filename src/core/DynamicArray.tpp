@@ -60,7 +60,7 @@ T DynamicArray<T>::Get(int index) const {
 }
 
 template <class T>
-int DynamicArray<T>::GetSize() const {
+size_t DynamicArray<T>::GetSize() const {
     return array_size;
 }
 
@@ -88,12 +88,12 @@ void DynamicArray<T>::Resize(int newSize) {
 }
 
 template <class T>
-T& DynamicArray<T>::operator[](int index) {
+T& DynamicArray<T>::operator[](size_t index) {
     return data[index];
 }
 
 template <class T>
-const T& DynamicArray<T>::operator[](int index) const {
+const T& DynamicArray<T>::operator[](size_t index) const {
         return data[index];
 }
 

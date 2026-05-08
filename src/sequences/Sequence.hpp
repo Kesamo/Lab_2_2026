@@ -12,7 +12,7 @@ class Sequence{
         virtual T GetLast() const = 0;
         virtual T Get(int index) const = 0;
         virtual Sequence<T>* GetSubsequence(int startIndex, int endIndex) const = 0; 
-        virtual int GetLength() const = 0;
+        virtual size_t GetLength() const = 0;
 
         virtual Sequence<T>* append(T item) = 0; 
         virtual Sequence<T>* prepend(T item) = 0; 
@@ -24,5 +24,4 @@ class Sequence{
         // virtual Sequence<T>* Map(T2 (*)(T)) const = 0; 
         // virtual Sequence<T>* Where(bool (*)(T)) const = 0;
         // virtual Sequence<T>* Reduce(T2 (*)(T2,T)) const = 0;
-
 };

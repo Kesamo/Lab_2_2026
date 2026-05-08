@@ -6,7 +6,7 @@
 template <class T>
 class SequenceArray : public Sequence<T>{
     protected:
-    DynamicArray<T>* array;
+    DynamicArray<T> array;
     
     SequenceArray<T>* appendInternal(T item);
     SequenceArray<T>* prependInternal(T item);
@@ -17,8 +17,6 @@ class SequenceArray : public Sequence<T>{
     SequenceArray();
     SequenceArray(T* item, int count);
     SequenceArray(const SequenceArray<T>& other);
-
-    ~SequenceArray();
     
     virtual SequenceArray<T>* Instance() = 0;
     virtual SequenceArray<T>* Clone() const = 0;
@@ -32,7 +30,7 @@ class SequenceArray : public Sequence<T>{
     T GetFirst() const override;
     T GetLast() const override;
     T Get(int index) const override;
-    int GetLength() const override;
+    size_t GetLength() const override;
     Sequence<T>* GetSubsequence(int startIndex, int endIndex) const override;
     
     Sequence<T>* append(T value) override;

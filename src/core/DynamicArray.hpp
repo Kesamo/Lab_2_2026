@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <cstddef>
 #include "ArrayIterator.hpp"
-#include "../utils/Exceptions.hpp"
+#include "Exceptions.hpp"
 
 template<class T>
 class DynamicArray : public IEnumerable<T>{
@@ -27,12 +27,12 @@ class DynamicArray : public IEnumerable<T>{
         ArrayIterator<T> end() const;
 
         T Get(int index) const;
-        int GetSize() const;
+        size_t GetSize() const;
         void Set(int index, T value);
         void Resize(int newSize);
 
-        T& operator [](int index);
-        const T& operator[](int index) const;
+        T& operator [](size_t index);
+        const T& operator[](size_t index) const;
 };
 
 #include "DynamicArray.tpp"

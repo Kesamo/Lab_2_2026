@@ -1,15 +1,15 @@
 #pragma once
-#include "../utils/IEnumerator.hpp"
-#include "../utils/Exceptions.hpp"
+#include "IEnumerator.hpp"
+#include "Exceptions.hpp"
 
 template <class T>
 class ArrayIterator: public IEnumerator<T> {
 private:
     const T* data_;
     int index_;
-    int size_;
+    size_t size_;
 public:
-    ArrayIterator(const T* data, int size, int startIndex) : data_(data), index_(startIndex), size_(size) {}
+    ArrayIterator(const T* data, size_t size, int startIndex) : data_(data), index_(startIndex), size_(size) {}
     T& Current() const override {
         if (index_ < 0 || index_ >= size_) {
             THROW(IteratorPointerException, "Попытка получить элемент вне масива");
