@@ -1,14 +1,32 @@
 #include <gtest/gtest.h>
-#include "../src/sequences/SequenceArray/MutableSequenceArray.hpp"
+#include "MutableSequenceArray.hpp"
 
-TEST(array_sequence, constructor_test) {
-    int array[] = {1, 2, 3, 4};
-    MutableSequenceArray<int> seq(array, 4);
+class MutableArrayTest : public ::testing::Test {
+protected:
+    MutableSequenceArray<int>* seq = nullptr;
 
-    ASSERT_EQ(seq.GetLength(), 4);
+    void SetUp() override {
+        int arr[] = {3,4,5,6};
+        seq = new MutableSequenceArray<int>(arr, 4);
+    }
 
-    EXPECT_EQ(seq.Get(0), 1);
-    EXPECT_EQ(seq.Get(1), 2);
-    EXPECT_EQ(seq.Get(2), 3);
-    EXPECT_EQ(seq.Get(3), 4);
+    void TearDown() override {
+        delete seq;
+    }
+};
+
+TEST_F(MutableArrayTest, test_GET){
+    ASSERT_NE(seq, nullptr);
+    EXPECT_EQ(seq->GetLength(), 4);
+    EXPECT_EQ(seq->Get(0), 3);
+    EXPECT_EQ(seq->Get(1), 4);
+    EXPECT_EQ(seq->Get(2), 5);
+    EXPECT_EQ(seq->Get(3), 6);
 }
+
+TEST_F(MutableArrayTest, test_append){
+    seq->append(20);
+    EXPECT_EQ(seq->GetLength(), 5);
+    EXPECT_EQ(seq->Get(4), 20);
+}
+
