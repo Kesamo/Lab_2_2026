@@ -2,10 +2,10 @@
 #include <stdexcept>
 #include <cstddef>
 #include "ListIterator.hpp"
+#include "IEnumerator.hpp"
 
 template <class T>
-class LinkedList
-{
+class LinkedList : public IEnumerable<T>{
     friend class ListIterator<T>;
 private:
     struct Node{
@@ -36,7 +36,7 @@ public:
     T GetFirst();
     T GetLast(); 
     T Get(int index); 
-    int GetLength(); 
+    size_t GetLength(); 
 
     void append(T item); 
     void prepend(T item); 

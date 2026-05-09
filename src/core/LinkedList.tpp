@@ -6,7 +6,6 @@ template <class T>
 LinkedList<T>::LinkedList(){
     head = nullptr;
     tail = nullptr;
-    size = 0;
 }
 
 template <class T>
@@ -49,8 +48,14 @@ T LinkedList<T>::GetLast(){
 }
 
 template <class T>
-int LinkedList<T>::GetLength(){
-    return size;
+size_t LinkedList<T>::GetLength(){
+    size_t count = 0;
+    Node* current = head;
+    while (current != nullptr) {
+        ++count;
+        current = current->next;
+    }
+    return count;
 }
 
 template <class T>
@@ -63,6 +68,7 @@ template <class T>
 typename LinkedList<T>::Node* LinkedList<T>::GetNode(int index){
     //TODO:Проверка индекса
     Node* current;
+    size_t size = GetLength();
     if (index < size / 2) {
         current = head;
         for (int i = 0; i < index; ++i) {
@@ -89,7 +95,6 @@ void LinkedList<T>::append(T item){
         new_node->prev = tail;
         tail = new_node;
     }
-    size++;
 }
 
 template <class T>
@@ -104,12 +109,12 @@ void LinkedList<T>::prepend(T item){
         head->prev = new_node;
         head = new_node;
     }
-    size++;
 }
 
 template <class T>
 void LinkedList<T>::insertAt(T item, int index){
     //TODO: Проверка
+    size_t size = GetLength();
 
     if(index == 0){
         prepend(item);
@@ -126,8 +131,6 @@ void LinkedList<T>::insertAt(T item, int index){
     new_node->next = current;
     current->prev->next = new_node;
     current->prev = new_node;
-
-    size++;
 }
 
 template <class T>
@@ -159,26 +162,26 @@ LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list){
 }
 
 template <class T>
-IEnumerator<T>* LinkedList<T>::GetEnumerator() const {
-    return new ListIterator(head);
+IEnumerator<T>* LinkedList<T>::GetEnumerator() const{
+    return new ListIterator<T>(head);
 }
 
 template <class T>
 ListIterator<T> LinkedList<T>::begin(){
-    
+    return new ListIterator<T>(head);
 }
 
 template <class T>
 ListIterator<T> LinkedList<T>::end(){
-
+    return new ListIterator<T>(tail);
 }
 
 template <class T>
 ListIterator<T> LinkedList<T>::begin() const{
-
+    return new ListIterator<T>(head);
 }
 
 template <class T>
 ListIterator<T> LinkedList<T>::end() const{
-
+    return new ListIterator<T>(tail);
 }
