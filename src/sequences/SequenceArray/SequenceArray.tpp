@@ -69,10 +69,10 @@ template <class T>
 Sequence<T>* SequenceArray<T>::Concat(Sequence<T>* list) const{
     SequenceArray<T>* res = Construct();
     for (int i = 0; i < this->GetLength(); ++i){
-        res->append(this->Get(i));
+        res->appendInternal(this->Get(i));
     }
     for (int i = 0; i < list->GetLength(); ++i){
-        res->append(list->Get(i));
+        res->appendInternal(list->Get(i));
     }
     return res;
 }
@@ -99,12 +99,12 @@ IEnumerator<T>* SequenceArray<T>::GetEnumerator() const{
 
 template <class T>
 ArrayIterator<T> SequenceArray<T>::begin() const {
-    return array->begin();
+    return array.begin();
 }
 
 template <class T>
 ArrayIterator<T> SequenceArray<T>::end() const {
-    return array->end();
+    return array.end();
 }
 
 
@@ -113,7 +113,7 @@ Sequence<T>* SequenceArray<T>::GetSubsequence(int startIndex, int endIndex) cons
     SequenceArray<T>* res = Construct();
 
     for (int i = startIndex; i <= endIndex; ++i) {
-        res->append(this->Get(i));
+        res->appendInternal(this->Get(i));
     }
     
     return res;

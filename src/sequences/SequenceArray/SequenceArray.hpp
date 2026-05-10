@@ -1,7 +1,8 @@
 #pragma once
 #include "DynamicArray.hpp"
 #include "Sequence.hpp"
-#include "../utils/Exceptions.hpp"
+#include "Exceptions.hpp"
+#include "ArrayIterator.hpp"
 
 template <class T>
 class SequenceArray : public Sequence<T>{
