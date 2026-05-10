@@ -7,6 +7,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(run_tests
     tests_SequenceArray.cpp
+    test_SequenceList.cpp
+    test_BitSequence.cpp
 )
 
 target_include_directories(run_tests PRIVATE
@@ -14,6 +16,7 @@ target_include_directories(run_tests PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/sequences
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/sequences/SequenceArray
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/sequences/SequenceList
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/sequences/BitSequence
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/utils 
 )
 

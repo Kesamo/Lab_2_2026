@@ -1,14 +1,14 @@
 #include <gtest/gtest.h>
-#include "MutableSequenceArray.hpp"
-#include "ImmutableSequenceArray.hpp"
+#include "MutableSequenceList.hpp"
+#include "ImmutableSequenceList.hpp"
 
-class MutableSequenceArrayTest : public ::testing::Test {
+class MutableSequenceListTest : public ::testing::Test{
 protected:
-    MutableSequenceArray<int>* seq = nullptr;
+    MutableSequenceList<int>* seq = nullptr;
 
     void SetUp() override {
         int arr[] = {3,4,5,6};
-        seq = new MutableSequenceArray<int>(arr, 4);
+        seq = new MutableSequenceList<int>(arr,4);
     }
 
     void TearDown() override {
@@ -16,7 +16,7 @@ protected:
     }
 };
 
-TEST_F(MutableSequenceArrayTest, test_GET) {
+TEST_F(MutableSequenceListTest, test_GET) {
     ASSERT_NE(seq, nullptr);
     EXPECT_EQ(seq->GetLength(), 4);
     EXPECT_EQ(seq->Get(0), 3);
@@ -25,13 +25,13 @@ TEST_F(MutableSequenceArrayTest, test_GET) {
     EXPECT_EQ(seq->Get(3), 6);
 }
 
-TEST_F(MutableSequenceArrayTest, test_trow) {
+TEST_F(MutableSequenceListTest, test_trow) {
     EXPECT_THROW(seq->Get(5), IndexOutOfRangeException);
     EXPECT_THROW(seq->insertAt(99,5), IndexOutOfRangeException);
 
 }
 
-TEST_F(MutableSequenceArrayTest, test_AppendAndPrepend) {
+TEST_F(MutableSequenceListTest, test_AppendAndPrepend) {
     seq->append(10);
 
     EXPECT_EQ(seq->GetLength(), 5);
@@ -46,7 +46,7 @@ TEST_F(MutableSequenceArrayTest, test_AppendAndPrepend) {
 
 }
 
-TEST_F(MutableSequenceArrayTest, test_InsertAt) {
+TEST_F(MutableSequenceListTest, test_InsertAt) {
     seq->insertAt(99,0);
 
     EXPECT_EQ(seq->Get(0), 99);
@@ -64,7 +64,7 @@ TEST_F(MutableSequenceArrayTest, test_InsertAt) {
 
 }
 
-TEST_F(MutableSequenceArrayTest, test_GetSubsequence) {
+TEST_F(MutableSequenceListTest, test_GetSubsequence) {
     Sequence<int>* sub = seq->GetSubsequence(0, 1);
     ASSERT_NE(sub, nullptr);
     EXPECT_EQ(sub->GetLength(), 2);
@@ -76,9 +76,9 @@ TEST_F(MutableSequenceArrayTest, test_GetSubsequence) {
 
 }
 
-TEST_F(MutableSequenceArrayTest, test_Concat) {
+TEST_F(MutableSequenceListTest, test_Concat) {
     int data[] = {10, 20};
-    MutableSequenceArray<int> other(data, 2);
+    MutableSequenceList<int> other(data, 2);
     
     Sequence<int>* concat = seq->Concat(&other);
     ASSERT_NE(concat, nullptr);
@@ -89,7 +89,7 @@ TEST_F(MutableSequenceArrayTest, test_Concat) {
 
 }
 
-TEST_F(MutableSequenceArrayTest, test_range_based) {
+TEST_F(MutableSequenceListTest, test_range_based) {
     size_t idx = 0;
     for (int val : *seq) {
         EXPECT_EQ(val, seq->Get(idx));
@@ -97,8 +97,8 @@ TEST_F(MutableSequenceArrayTest, test_range_based) {
     }
 }
 
-TEST_F(MutableSequenceArrayTest, test_throw_empty) {
-    MutableSequenceArray<int> mut;
+TEST_F(MutableSequenceListTest, test_throw_empty) {
+    MutableSequenceList<int> mut;
     EXPECT_EQ(mut.GetLength(), 0);
     
     EXPECT_THROW(mut.GetFirst(), IndexOutOfRangeException);
@@ -110,8 +110,8 @@ TEST_F(MutableSequenceArrayTest, test_throw_empty) {
     EXPECT_EQ(mut.Get(0), 42);
 }
 
-TEST_F(MutableSequenceArrayTest, test_Concat_plus_empty) {
-    MutableSequenceArray<int> mut;
+TEST_F(MutableSequenceListTest, test_Concat_plus_empty) {
+    MutableSequenceList<int> mut;
     
     Sequence<int>* r1 = seq->Concat(&mut);
     EXPECT_EQ(r1->GetLength(), 4);
@@ -122,19 +122,19 @@ TEST_F(MutableSequenceArrayTest, test_Concat_plus_empty) {
     delete r2;
 }
 
-TEST_F(MutableSequenceArrayTest, test_negativ) {
+TEST_F(MutableSequenceListTest, test_negativ) {
     EXPECT_THROW(seq->Get(-1), IndexOutOfRangeException);
     EXPECT_THROW(seq->insertAt(10, -1), IndexOutOfRangeException);
     EXPECT_THROW(seq->GetSubsequence(-1, 2), IndexOutOfRangeException);
 }
 
-class ImmutablSequenceArrayTest : public ::testing::Test {
-    protected:
-    ImmutableSequenceArray<int>* seq = nullptr;
+class ImmutableSequenceListTest : public ::testing::Test{
+protected:
+    ImmutableSequenceList<int>* seq = nullptr;
 
     void SetUp() override {
         int arr[] = {3,4,5,6};
-        seq = new ImmutableSequenceArray<int>(arr, 4);
+        seq = new ImmutableSequenceList<int>(arr,4);
     }
 
     void TearDown() override {
@@ -142,7 +142,7 @@ class ImmutablSequenceArrayTest : public ::testing::Test {
     }
 };
 
-TEST_F(ImmutablSequenceArrayTest, test_GET) {
+TEST_F(ImmutableSequenceListTest, test_GET) {
     ASSERT_NE(seq, nullptr);
     EXPECT_EQ(seq->GetLength(), 4);
     EXPECT_EQ(seq->Get(0), 3);
@@ -151,13 +151,13 @@ TEST_F(ImmutablSequenceArrayTest, test_GET) {
     EXPECT_EQ(seq->Get(3), 6);
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_trow) {
+TEST_F(ImmutableSequenceListTest, test_trow) {
     EXPECT_THROW(seq->Get(5), IndexOutOfRangeException);
     EXPECT_THROW(seq->insertAt(99,5), IndexOutOfRangeException);
 
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_Clone) {
+TEST_F(ImmutableSequenceListTest, test_Clone) {
     Sequence<int>* clon = seq->Clone();
     ASSERT_NE(clon, nullptr);
     EXPECT_EQ(clon->GetLength(), 4);
@@ -168,7 +168,7 @@ TEST_F(ImmutablSequenceArrayTest, test_Clone) {
     delete clon;
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_Construct) {
+TEST_F(ImmutableSequenceListTest, test_Construct) {
     Sequence<int>* immut = seq->Construct();
     ASSERT_NE(immut, nullptr);
     EXPECT_EQ(immut->GetLength(), 0);
@@ -178,7 +178,7 @@ TEST_F(ImmutablSequenceArrayTest, test_Construct) {
 
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_GetSubsequence) {
+TEST_F(ImmutableSequenceListTest, test_GetSubsequence) {
     Sequence<int>* sub = seq->GetSubsequence(0, 1);
     ASSERT_NE(sub, nullptr);
     EXPECT_EQ(sub->GetLength(), 2);
@@ -190,9 +190,9 @@ TEST_F(ImmutablSequenceArrayTest, test_GetSubsequence) {
 
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_Concat) {
+TEST_F(ImmutableSequenceListTest, test_Concat) {
     int data[] = {10, 20};
-    MutableSequenceArray<int> other(data, 2);
+    ImmutableSequenceList<int> other(data, 2);
     
     Sequence<int>* concat = seq->Concat(&other);
     ASSERT_NE(concat, nullptr);
@@ -204,8 +204,8 @@ TEST_F(ImmutablSequenceArrayTest, test_Concat) {
 
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_Concat_plus_empty) {
-    MutableSequenceArray<int> mut;
+TEST_F(ImmutableSequenceListTest, test_Concat_plus_empty) {
+    ImmutableSequenceList<int> mut;
     
     Sequence<int>* r1 = seq->Concat(&mut);
     EXPECT_EQ(r1->GetLength(), 4);
@@ -216,7 +216,7 @@ TEST_F(ImmutablSequenceArrayTest, test_Concat_plus_empty) {
     delete r2;
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_range_based) {
+TEST_F(ImmutableSequenceListTest, test_range_based) {
     size_t idx = 0;
     for (int val : *seq) {
         EXPECT_EQ(val, seq->Get(idx));
@@ -224,7 +224,7 @@ TEST_F(ImmutablSequenceArrayTest, test_range_based) {
     }
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_append) {
+TEST_F(ImmutableSequenceListTest, test_append) {
     Sequence<int>* append_seq = seq->append(100);
 
     EXPECT_NE(append_seq, seq);
@@ -238,7 +238,7 @@ TEST_F(ImmutablSequenceArrayTest, test_append) {
     delete append_seq;
 }
 
-TEST_F(ImmutablSequenceArrayTest, test_prepend) {
+TEST_F(ImmutableSequenceListTest, test_prepend) {
     Sequence<int>* prepend_seq = seq->prepend(100);
 
     EXPECT_NE(prepend_seq, seq);
