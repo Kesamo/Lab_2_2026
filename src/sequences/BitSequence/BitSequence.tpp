@@ -44,11 +44,12 @@ BitSequence<T>* BitSequence<T>::insertAtInternal(T item, int index) {
 
 template <std::integral T>
 Sequence<T>* BitSequence<T>::GetSubsequence(int startIndex, int endIndex) const {
+    BitSequence<T>* res = Construct();
 
-    Sequence<T>* res = Construct();
     for (int i = startIndex; i <= endIndex; ++i) {
-        res->append(Get(i));
+        res->appendInternal(this->Get(i));
     }
+    
     return res;
 }
 
@@ -56,10 +57,10 @@ template <std::integral T>
 auto BitSequence<T>::Concat(Sequence<T> * list) const -> Sequence<T>* {
     BitSequence<T>* res = Construct();
     for( size_t i = 0; i < this->GetLength(); ++i){
-        res->append(this->Get(i));
+        res->appendInternal(this->Get(i));
     }
     for( size_t i = 0; i < list->GetLength(); ++i){
-        res->append(list->Get(i));
+        res->appendInternal(list->Get(i));
     }
     return res;
 }
@@ -80,7 +81,7 @@ Sequence<T>* BitSequence<T>::insertAt(T value, int index) {
 }
 
 template <std::integral T>
-auto BitSequence<T>::GetFirst() const {
+T BitSequence<T>::GetFirst() const {
     return array.Get(0);
 }
 
@@ -101,16 +102,36 @@ size_t BitSequence<T>::GetLength() const {
 }
 
 template <std::integral T>
-auto BitSequence<T>::operator[](size_t idx) -> Bit<T>{
-    // [0000 0010][0011 0010][0000 0000]
-// 10/8 = 1
-// 10%8 = 2
-
-
-    return Bit<T>( Bit<T>(array[idx / (sizeof(T) * 8)])[idx % (sizeof(T) * 8)] );
+auto BitSequence<T>::operator[](size_t idx) {
+    return BitProxy<T>(array[idx / (sizeof(T) * 8)],idx % (sizeof(T) * 8));
 }
+
+template <std::integral T>
+auto BitSequence<T>::operator[](size_t idx) const {
+    return BitProxy<T>(array[idx / (sizeof(T) * 8)],idx % (sizeof(T) * 8));
+}
+
+// template <std::integral T>
+// auto BitSequence<T>::operator[](size_t idx) {
+//     return array[idx / (sizeof(T) * 8)][idx % (sizeof(T) * 8)];
+// }
+
+// template <std::integral T>
+// auto BitSequence<T>::operator[](size_t idx) const {
+//     return array[idx / (sizeof(T) * 8)][idx % (sizeof(T) * 8)];
+// }
 
 template <std::integral T>
 IEnumerator<T>* BitSequence<T>::GetEnumerator() const{
     return array.GetEnumerator();
+}
+
+template <std::integral T>
+ArrayIterator<T> BitSequence<T>::begin() const {
+    return array.begin();
+}
+
+template <std::integral T>
+ArrayIterator<T> BitSequence<T>::end() const {
+    return array.end();
 }

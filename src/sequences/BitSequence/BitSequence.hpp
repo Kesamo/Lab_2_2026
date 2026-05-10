@@ -20,12 +20,14 @@ private:
     BitSequence(T* item, size_t count);
     BitSequence(const BitSequence<T> & other);
 
+    ArrayIterator<T> begin() const ;
+    ArrayIterator<T> end() const ;
 
     virtual BitSequence<T>* Instance() = 0;
     virtual BitSequence<T>* Clone() const = 0;
     virtual BitSequence<T>* Construct() const = 0;
 
-    auto GetFirst() const override;
+    T GetFirst() const override;
     T GetLast() const override;
     T Get(int index) const override;
     size_t GetLength() const override;
@@ -39,7 +41,8 @@ private:
     Sequence<T>* Concat(Sequence<T> *list) const override;
 
 
-    Bit<T> operator[](size_t idx);
+    auto operator[](size_t idx);
+    auto operator[](size_t idx) const;
 };
 
 #include "BitSequence.tpp"
