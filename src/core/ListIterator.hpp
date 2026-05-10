@@ -1,6 +1,9 @@
 #pragma once
 #include "IEnumerator.hpp"
+#include "LinkedList.hpp"
 #include <Exceptions.hpp>
+
+template <class T> class LinkedList;
 
 template <class T>
 class ListIterator : public IEnumerator<T> {
@@ -35,10 +38,10 @@ public:
     }
 
     bool operator!=(const ListIterator& other) const {
-        return index_ != other.index_;
+        return current_ != other.current_;
     }
 
     bool operator==(const ListIterator& other) const {
-        return index_ == other.index_;
+        return current_ == other.current_;
     }
 };

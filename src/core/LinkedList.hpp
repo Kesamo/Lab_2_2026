@@ -3,6 +3,7 @@
 #include <cstddef>
 #include "ListIterator.hpp"
 #include "IEnumerator.hpp"
+#include "Exceptions.hpp"
 
 template <class T>
 class LinkedList : public IEnumerable<T>{
@@ -32,18 +33,18 @@ public:
     ListIterator<T> begin() const;
     ListIterator<T> end() const;
 
-    Node* GetNode(int index);
-    T GetFirst();
-    T GetLast(); 
-    T Get(int index); 
-    size_t GetLength(); 
+    Node* GetNode(int index) const;
+    T GetFirst() const;
+    T GetLast() const; 
+    T Get(int index) const; 
+    size_t GetLength() const; 
 
     void append(T item); 
     void prepend(T item); 
     void insertAt(T item, int index); 
 
-    LinkedList<T>* GetSubList(int startIndex, int endIndex);
-    LinkedList<T>* Concat(LinkedList<T> *list); 
+    LinkedList<T>* GetSubList(int startIndex, int endIndex) const;
+    LinkedList<T>* Concat(LinkedList<T> *list) const; 
 };
 
 #include "LinkedList.tpp"

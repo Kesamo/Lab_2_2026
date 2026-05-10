@@ -6,12 +6,9 @@
 
 class Exception : public std::exception {
 private:
-    const char* message;
-    const char* files;
-    const char* function;
     const char* full_msg;
 public:
-    Exception(const char* msg, const char* file, const char* func) : message(msg), files(file), function(func) {
+    Exception(const char* msg, const char* file, const char* func){
         auto full_msg = std::format("{}() {}::{}", func, file, msg);
     }
     

@@ -36,19 +36,27 @@ LinkedList<T>::~LinkedList(){
 }
 
 template <class T>
-T LinkedList<T>::GetFirst(){
-    //TODO: Проверка индекса
+T LinkedList<T>::GetFirst() const{
+    size_t size = GetLength();
+    
+    if (size == 0 || head == nullptr) {
+        THROW(IndexOutOfRangeException,("GetFirst: список пуст"));
+    }
     return head->data;
 }
 
 template <class T>
-T LinkedList<T>::GetLast(){
-    //TODO: Проверка индекса
+T LinkedList<T>::GetLast() const{
+    size_t size = GetLength();
+
+    if (size == 0 || tail == nullptr) {
+        THROW(IndexOutOfRangeException,("GetLast: список пуст"));
+    }
     return tail->data;
 }
 
 template <class T>
-size_t LinkedList<T>::GetLength(){
+size_t LinkedList<T>::GetLength() const{
     size_t count = 0;
     Node* current = head;
     while (current != nullptr) {
@@ -59,16 +67,25 @@ size_t LinkedList<T>::GetLength(){
 }
 
 template <class T>
-T LinkedList<T>::Get(int index){
-    //TODO: Проверка индекса
+T LinkedList<T>::Get(int index) const{
+    size_t size = GetLength();
+    
+    if (index < 0 || index >= size) {
+        THROW(IndexOutOfRangeException, ("Get: индекс вне диапазона"));
+    }
+
     return GetNode(index)->data;
 }
 
 template <class T>
-typename LinkedList<T>::Node* LinkedList<T>::GetNode(int index){
-    //TODO:Проверка индекса
-    Node* current;
+typename LinkedList<T>::Node* LinkedList<T>::GetNode(int index) const{
     size_t size = GetLength();
+    
+    if (index < 0 || index > size) {
+        THROW(IndexOutOfRangeException, ("GetNode: индекс вне диапазона"));
+    }
+
+    Node* current;
     if (index < size / 2) {
         current = head;
         for (int i = 0; i < index; ++i) {
@@ -113,15 +130,20 @@ void LinkedList<T>::prepend(T item){
 
 template <class T>
 void LinkedList<T>::insertAt(T item, int index){
-    //TODO: Проверка
     size_t size = GetLength();
+
+    if (index < 0 || index > size) {
+        THROW(IndexOutOfRangeException, ("Позиция вставки " + std::to_string(index) + " недопустима. Допустимый диапазон: " + std::to_string(size)).c_str());
+    }
 
     if(index == 0){
         prepend(item);
+        return;
     }
 
     if(index == size){
         append(item);
+        return;
     }
 
     Node* new_node = new Node(item);
@@ -134,7 +156,7 @@ void LinkedList<T>::insertAt(T item, int index){
 }
 
 template <class T>
-LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex){
+LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex) const{
     //TODO: Проверка
     LinkedList<T>* SubList = new LinkedList<T>();
     Node* current = GetNode(startIndex);
@@ -148,7 +170,7 @@ LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex){
 }
 
 template <class T>
-LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list){
+LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) const{
     //TODO: Проверка на nullptr
     LinkedList<T>* new_list = new LinkedList<T>(*this);
     Node* current = list->head;
@@ -168,20 +190,20 @@ IEnumerator<T>* LinkedList<T>::GetEnumerator() const{
 
 template <class T>
 ListIterator<T> LinkedList<T>::begin(){
-    return new ListIterator<T>(head);
+    return ListIterator<T>(head);
 }
 
 template <class T>
 ListIterator<T> LinkedList<T>::end(){
-    return new ListIterator<T>(tail);
+    return ListIterator<T>(nullptr);
 }
 
 template <class T>
 ListIterator<T> LinkedList<T>::begin() const{
-    return new ListIterator<T>(head);
+    return ListIterator<T>(head);
 }
 
 template <class T>
 ListIterator<T> LinkedList<T>::end() const{
-    return new ListIterator<T>(tail);
+    return ListIterator<T>(nullptr);
 }
