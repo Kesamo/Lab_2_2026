@@ -8,7 +8,7 @@ public:
     ~MutableSequenceList() = default;
 
     SequenceList<T>* Instance() override {
-        return this->Clone();
+        return this;
     }
     SequenceList<T>* Clone() const override {
         return new MutableSequenceList<T>(*this);

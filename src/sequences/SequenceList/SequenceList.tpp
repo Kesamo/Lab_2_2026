@@ -1,5 +1,6 @@
 #pragma once
 #include "SequenceList.hpp"
+#include "IEnumerator.hpp"
 
 template <class T>
 SequenceList<T>::SequenceList() : list(new LinkedList<T>()) {}
@@ -47,7 +48,7 @@ T SequenceList<T>::Get(int index) const {
 }
 
 template <class T>
-int SequenceList<T>::GetLength() const {
+size_t SequenceList<T>::GetLength() const {
     return list->GetLength();
 }
 
@@ -76,12 +77,12 @@ Sequence<T>* SequenceList<T>::insertAt(T item, int index){
 }
 
 template <class T>
-IEnumerator<T>* SequenceList<T>::GetEnumerator(){
-    return new EnumeratorSequence<T>(this);
+IEnumerator<T>* SequenceList<T>::GetEnumerator() const{
+    return list->GetEnumerator();
 }
 
 template <class T>
-Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq){
+Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq) const{
     SequenceList<T>* res = Construct();
     for (int i = 0; i < GetLength(); ++i){
         res->appendInternal(Get(i));
@@ -90,4 +91,14 @@ Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq){
         res->appendInternal(seq->Get(i));
     }
     return res;
+}
+
+template <class T>
+ListIterator<T> SequenceList<T>::begin() const {
+    return list->begin();
+}
+
+template <class T>
+ListIterator<T> SequenceList<T>::end() const {
+    return list->end();
 }
