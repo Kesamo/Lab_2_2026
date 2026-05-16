@@ -6,7 +6,7 @@
 template <class T>
 class SequenceList : public Sequence<T>{
     protected:
-    LinkedList<T>* list = nullptr;
+    LinkedList<T> list;
 
     SequenceList<T>* appendInternal(T item);
     SequenceList<T>* prependInternal(T item);
@@ -17,8 +17,6 @@ class SequenceList : public Sequence<T>{
     SequenceList();
     SequenceList(T* items, int count);
     SequenceList(const SequenceList<T>& other);
-
-    ~SequenceList();
 
     virtual SequenceList<T>* Instance() = 0;
     virtual SequenceList<T>* Clone() const = 0;

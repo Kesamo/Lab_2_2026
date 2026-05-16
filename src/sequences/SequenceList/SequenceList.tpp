@@ -3,60 +3,57 @@
 #include "IEnumerator.hpp"
 
 template <class T>
-SequenceList<T>::SequenceList() : list(new LinkedList<T>()) {}
+SequenceList<T>::SequenceList() : list(LinkedList<T>()) {}
 
 template <class T>
-SequenceList<T>::SequenceList(T* items, int count) : list(new LinkedList( items, count)) {}
+SequenceList<T>::SequenceList(T* items, int count) : list(LinkedList( items, count)) {}
 
 template <class T>
-SequenceList<T>::SequenceList(const SequenceList<T>& other) : list(new LinkedList<T>(*other.list)) {}
-
-template <class T>
-SequenceList<T>::~SequenceList() {delete list;}
+SequenceList<T>::SequenceList(const SequenceList<T>& other) : list(LinkedList<T>(other.list)) {}
 
 template <class T>
 SequenceList<T>* SequenceList<T>::appendInternal(T item){
-    list->append(item);
+    list.append(item);
     return this;
 }
 
 template <class T>
 SequenceList<T>* SequenceList<T>::prependInternal(T item){
-    list->prepend(item);
+    list.prepend(item);
     return this;
 }
 
 template <class T>
 SequenceList<T>* SequenceList<T>::insertAtInternal(T item, int index){
-    list->insertAt(item, index);
+    list.insertAt(item, index);
     return this;
 }
 
 template <class T>
 T SequenceList<T>::GetFirst() const {
-    return list->GetFirst();
+    return list.GetFirst();
 }
 
 template <class T>
 T SequenceList<T>::GetLast() const {
-    return list->GetLast();
+    return list.GetLast();
 }
 
 template <class T>
 T SequenceList<T>::Get(int index) const {
-    return list->Get(index);
+    return list.Get(index);
 }
 
 template <class T>
 size_t SequenceList<T>::GetLength() const {
-    return list->GetLength();
+    return list.GetLength();
 }
 
 template <class T>
 Sequence<T>* SequenceList<T>::GetSubsequence(int startIndex, int endIndex) const {
     SequenceList<T>* res = Construct();
     for (int i = startIndex; i <= endIndex; ++i){
-            res->appendInternal(list->Get(i));
+            res->appendInternal(list.Get(i));
     }
     return res;
 }
@@ -78,7 +75,7 @@ Sequence<T>* SequenceList<T>::insertAt(T item, int index){
 
 template <class T>
 IEnumerator<T>* SequenceList<T>::GetEnumerator() const{
-    return list->GetEnumerator();
+    return list.GetEnumerator();
 }
 
 template <class T>
@@ -95,10 +92,10 @@ Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq) const{
 
 template <class T>
 ListIterator<T> SequenceList<T>::begin() const {
-    return list->begin();
+    return list.begin();
 }
 
 template <class T>
 ListIterator<T> SequenceList<T>::end() const {
-    return list->end();
+    return list.end();
 }
