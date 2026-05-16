@@ -4,7 +4,7 @@
 
 #include <vector>
 
-std::vector<bool> b;
+inline std::vector<bool> b;
 
 template <std::integral T = char>
 struct BitProxy {
@@ -54,6 +54,8 @@ private:
     size_t idx;
     using Proxy = BitProxy<T>;
 public:
+    Bit() : value(0), idx(0) {}
+    
     Bit(const Bit& b) = default;
     constexpr Bit(T o) : value(o) {}
     

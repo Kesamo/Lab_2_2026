@@ -19,6 +19,7 @@ add_subdirectory(src/core)
 add_subdirectory(src/sequences)
 add_subdirectory(src/sequences/SequenceArray)
 add_subdirectory(src/sequences/SequenceList)
+add_subdirectory(src/sequences/BitSequence)
 
 target_link_libraries(lab2_app PRIVATE
     ftxui::dom

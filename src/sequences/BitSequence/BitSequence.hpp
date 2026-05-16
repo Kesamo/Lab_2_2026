@@ -5,19 +5,19 @@
 #include "IEnumerator.hpp"
 
 template <std::integral T>
-class BitSequence : public Sequence<T>{
+class BitSequence : public Sequence<Bit<T>>{
 private:
-    DynamicArray<T> array;
+    DynamicArray<Bit<T>> array;
 
-    BitSequence<T>* appendInternal(T item);
-    BitSequence<T>* prependInternal(T item);
-    BitSequence<T>* insertAtInternal(T item, int index);
+    BitSequence<T>* appendInternal(Bit<T> item);
+    BitSequence<T>* prependInternal(Bit<T> item);
+    BitSequence<T>* insertAtInternal(Bit<T> item, int index);
     
     
     public:
 
     BitSequence();
-    BitSequence(T* item, size_t count);
+    BitSequence(Bit<T>* item, size_t count);
     BitSequence(const BitSequence<T> & other);
 
     ArrayIterator<T> begin() const ;
@@ -27,18 +27,18 @@ private:
     virtual BitSequence<T>* Clone() const = 0;
     virtual BitSequence<T>* Construct() const = 0;
 
-    T GetFirst() const override;
-    T GetLast() const override;
-    T Get(int index) const override;
+    Bit<T> GetFirst() const override;
+    Bit<T> GetLast() const override;
+    Bit<T> Get(int index) const override;
     size_t GetLength() const override;
-    Sequence<T>* GetSubsequence(int startIndex, int endIndex) const override;
+    Sequence<Bit<T>>* GetSubsequence(int startIndex, int endIndex) const override;
     
-    IEnumerator<T>* GetEnumerator() const override;
+    IEnumerator<Bit<T>>* GetEnumerator() const override;
 
-    Sequence<T>* append(T value) override;
-    Sequence<T>* prepend(T value) override;
-    Sequence<T>* insertAt(T item, int index) override;
-    Sequence<T>* Concat(Sequence<T> *list) const override;
+    Sequence<Bit<T>>* append(Bit<T> value) override;
+    Sequence<Bit<T>>* prepend(Bit<T> value) override;
+    Sequence<Bit<T>>* insertAt(Bit<T> item, int index) override;
+    Sequence<Bit<T>>* Concat(Sequence<Bit<T>> *list) const override;
 
 
     auto operator[](size_t idx);

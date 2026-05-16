@@ -3,17 +3,17 @@
 #include "BitSequence.hpp"
 
 template <std::integral T>
-BitSequence<T>::BitSequence() : array(DynamicArray<T>(0)) {}
+BitSequence<T>::BitSequence() : array(DynamicArray<Bit<T>>(0)) {}
 
 template <std::integral T>
-BitSequence<T>::BitSequence(T* item, size_t count) : array(DynamicArray<T>(item, count)) {}
+BitSequence<T>::BitSequence(Bit<T>* item, size_t count) : array(DynamicArray<Bit<T>>(item, count)) {}
 
 template <std::integral T>
-BitSequence<T>::BitSequence(const BitSequence<T>& other) : array(DynamicArray<T>(other.array)) {}
+BitSequence<T>::BitSequence(const BitSequence<T>& other) : array(DynamicArray<Bit<T>>(other.array)) {}
 
 
 template <std::integral T>
-BitSequence<T>* BitSequence<T>::appendInternal(T value) {
+BitSequence<T>* BitSequence<T>::appendInternal(Bit<T> value) {
     size_t size = array.GetSize();
     array.Resize(size + 1);
     array.Set(size, value);
@@ -21,7 +21,7 @@ BitSequence<T>* BitSequence<T>::appendInternal(T value) {
 }
 
 template <std::integral T>
-BitSequence<T>* BitSequence<T>::prependInternal(T value) {
+BitSequence<T>* BitSequence<T>::prependInternal(Bit<T> value) {
     size_t size = array.GetSize();
     array.Resize(size + 1);
     for (size_t i = size; i > 0; --i){
@@ -32,7 +32,7 @@ BitSequence<T>* BitSequence<T>::prependInternal(T value) {
 }
 
 template <std::integral T>
-BitSequence<T>* BitSequence<T>::insertAtInternal(T item, int index) {
+BitSequence<T>* BitSequence<T>::insertAtInternal(Bit<T> item, int index) {
     size_t size = array.GetSize();
     array.Resize(size + 1);
     for( size_t i = size ; i > index; --i){
@@ -43,7 +43,7 @@ BitSequence<T>* BitSequence<T>::insertAtInternal(T item, int index) {
 }
 
 template <std::integral T>
-Sequence<T>* BitSequence<T>::GetSubsequence(int startIndex, int endIndex) const {
+Sequence<Bit<T>>* BitSequence<T>::GetSubsequence(int startIndex, int endIndex) const {
     BitSequence<T>* res = Construct();
 
     for (int i = startIndex; i <= endIndex; ++i) {
@@ -54,7 +54,7 @@ Sequence<T>* BitSequence<T>::GetSubsequence(int startIndex, int endIndex) const 
 }
 
 template <std::integral T>
-auto BitSequence<T>::Concat(Sequence<T> * list) const -> Sequence<T>* {
+auto BitSequence<T>::Concat(Sequence<Bit<T>> * list) const -> Sequence<Bit<T>>* {
     BitSequence<T>* res = Construct();
     for( size_t i = 0; i < this->GetLength(); ++i){
         res->appendInternal(this->Get(i));
@@ -66,32 +66,32 @@ auto BitSequence<T>::Concat(Sequence<T> * list) const -> Sequence<T>* {
 }
 
 template <std::integral T>
-auto BitSequence<T>::append(T value) -> Sequence<T>* {
+auto BitSequence<T>::append(Bit<T> value) -> Sequence<Bit<T>>* {
     return Instance()->appendInternal(value);
 }
 
 template <std::integral T>
-Sequence<T>* BitSequence<T>::prepend(T value) {
+Sequence<Bit<T>>* BitSequence<T>::prepend(Bit<T> value) {
     return Instance()->prependInternal(value);
 }
 
 template <std::integral T>
-Sequence<T>* BitSequence<T>::insertAt(T value, int index) {
+Sequence<Bit<T>>* BitSequence<T>::insertAt(Bit<T> value, int index) {
     return Instance()->insertAtInternal(value, index);
 }
 
 template <std::integral T>
-T BitSequence<T>::GetFirst() const {
+Bit<T> BitSequence<T>::GetFirst() const {
     return array.Get(0);
 }
 
 template <std::integral T>
-T BitSequence<T>::Get(int index) const {
+Bit<T> BitSequence<T>::Get(int index) const {
     return array.Get(index);
 }
 
 template <std::integral T>
-T BitSequence<T>::GetLast() const {
+Bit<T> BitSequence<T>::GetLast() const {
     size_t size = array.GetSize();
     return array.Get(size - 1);
 }
@@ -103,12 +103,12 @@ size_t BitSequence<T>::GetLength() const {
 
 template <std::integral T>
 auto BitSequence<T>::operator[](size_t idx) {
-    return BitProxy<T>(array[idx / (sizeof(T) * 8)],idx % (sizeof(T) * 8));
+    return array[idx / (sizeof(T) * 8)][idx % (sizeof(T) * 8)];
 }
 
 template <std::integral T>
 auto BitSequence<T>::operator[](size_t idx) const {
-    return BitProxy<T>(array[idx / (sizeof(T) * 8)],idx % (sizeof(T) * 8));
+    return array[idx / (sizeof(T) * 8)][idx % (sizeof(T) * 8)];
 }
 
 // template <std::integral T>
@@ -122,7 +122,7 @@ auto BitSequence<T>::operator[](size_t idx) const {
 // }
 
 template <std::integral T>
-IEnumerator<T>* BitSequence<T>::GetEnumerator() const{
+IEnumerator<Bit<T>>* BitSequence<T>::GetEnumerator() const{
     return array.GetEnumerator();
 }
 
