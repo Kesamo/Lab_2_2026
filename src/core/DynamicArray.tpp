@@ -7,7 +7,7 @@ template <class T>
 DynamicArray<T>::DynamicArray() : array_size(0), data(nullptr) {}
 
 template <class T>
-DynamicArray<T>::DynamicArray(T* items, int count) : array_size(count) {
+DynamicArray<T>::DynamicArray(T* items, size_t count) : array_size(count) {
     
     if (count == 0) {
         data = nullptr;
@@ -22,7 +22,7 @@ DynamicArray<T>::DynamicArray(T* items, int count) : array_size(count) {
 }
 
 template <class T>
-DynamicArray<T>::DynamicArray(int size) : array_size(size){
+DynamicArray<T>::DynamicArray(size_t size) : array_size(size){
     array_size = size;
 
     if (array_size == 0) {
@@ -52,9 +52,9 @@ DynamicArray<T>::~DynamicArray() {
 }
 
 template <class T>
-T DynamicArray<T>::Get(int index) const {
-    if (index < 0 || index >= array_size){
-        THROW(IndexOutOfRangeException,("Индекс " + std::to_string(index) + " выходит за границы массива : " + std::to_string(array_size)).c_str());
+T DynamicArray<T>::Get(size_t index) const {
+    if (index >= array_size){
+        throw IndexOutOfRangeException(index, array_size);
     }
     return data[index];
 }
@@ -65,17 +65,17 @@ size_t DynamicArray<T>::GetSize() const {
 }
 
 template <class T>
-void DynamicArray<T>::Set(int index, T value){
-    if (index < 0 || index >= array_size){
-        THROW(IndexOutOfRangeException,("Индекс " + std::to_string(index) + " выходит за границы массива : " + std::to_string(array_size)).c_str());
+void DynamicArray<T>::Set(size_t index, T value){
+    if (index >= array_size){
+        throw IndexOutOfRangeException(index, array_size); 
     }
     data[index] = value;
 }
 
 template <class T>
-void DynamicArray<T>::Resize(int newSize) {
+void DynamicArray<T>::Resize(size_t newSize) {
     if (newSize < 0) {
-        THROW(InvalidArgumentException, "Нельзя изменить размер на отрицательное значение");
+        throw InvalidArgumentException;
     }
     T* newData = new T[newSize];
     int count = (newSize < array_size) ? newSize : array_size;

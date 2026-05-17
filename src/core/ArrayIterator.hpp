@@ -6,13 +6,13 @@ template <class T>
 class ArrayIterator: public IEnumerator<T> {
 private:
     const T* data_;
-    int index_;
+    size_t index_;
     size_t size_;
 public:
-    ArrayIterator(const T* data, size_t size, int startIndex) : data_(data), index_(startIndex), size_(size) {}
+    ArrayIterator(const T* data, size_t size, size_t startIndex) : data_(data), index_(startIndex), size_(size) {}
     T& Current() const override {
-        if (index_ < 0 || index_ >= size_) {
-            THROW(IteratorPointerException, "Попытка получить элемент вне масива");
+        if (index_ >= size_) {
+            throw IteratorPointerException(index_);
         }
         return const_cast<T&>(data_[index_]);
     }

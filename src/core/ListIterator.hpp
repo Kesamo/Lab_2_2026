@@ -14,6 +14,9 @@ public:
     explicit ListIterator(typename LinkedList<T>::Node* head) : current_(head), head_(head){}
 
     T& Current() const override {
+        if(current_ == nullptr){
+            return throw IteratorPointerException;
+        }
         return current_->data;
     }
 

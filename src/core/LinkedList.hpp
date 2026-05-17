@@ -20,7 +20,7 @@ private:
     Node* head;
     Node* tail;
 public:
-    LinkedList (T* items, int count); 
+    LinkedList (T* items, size_t count); 
     LinkedList();
     LinkedList (const LinkedList <T>& list); 
     ~LinkedList();
@@ -33,17 +33,17 @@ public:
     ListIterator<T> begin() const;
     ListIterator<T> end() const;
 
-    Node* GetNode(int index) const;
+    Node* GetNode(size_t) const;
     T GetFirst() const;
     T GetLast() const; 
-    T Get(int index) const; 
+    T Get(size_t index) const; 
     size_t GetLength() const; 
 
     void append(T item); 
     void prepend(T item); 
-    void insertAt(T item, int index); 
+    void insertAt(T item, size_t index); 
 
-    LinkedList<T>* GetSubList(int startIndex, int endIndex) const;
+    LinkedList<T>* GetSubList(size_t startIndex, size_t endIndex) const;
     LinkedList<T>* Concat(LinkedList<T> *list) const; 
 };
 

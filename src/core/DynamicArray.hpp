@@ -7,13 +7,13 @@
 template<class T>
 class DynamicArray : public IEnumerable<T>{
     private:
-        int array_size = 0;
+        size_t array_size = 0;
         T* data = nullptr;
 
     public:
         DynamicArray();
-        DynamicArray(T* items, int count);
-        DynamicArray(int size);
+        DynamicArray(T* items, size_t count);
+        DynamicArray(size_t size);
         DynamicArray(const DynamicArray<T> & dynamicArray);
 
         ~DynamicArray();
@@ -26,10 +26,10 @@ class DynamicArray : public IEnumerable<T>{
         ArrayIterator<T> begin() const;
         ArrayIterator<T> end() const;
 
-        T Get(int index) const;
+        T Get(size_t index) const;
         size_t GetSize() const;
-        void Set(int index, T value);
-        void Resize(int newSize);
+        void Set(size_t index, T value);
+        void Resize(size_t newSize);
 
         T& operator [](size_t index);
         const T& operator[](size_t index) const;

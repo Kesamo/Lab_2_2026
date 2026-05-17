@@ -9,9 +9,11 @@ LinkedList<T>::LinkedList(){
 }
 
 template <class T>
-LinkedList<T>::LinkedList(T* items, int count) : LinkedList(){
-    //TODO: Проверка размера
-    for(int i = 0; i < count; ++i){
+LinkedList<T>::LinkedList(T* items, size_t count) : LinkedList(){
+    if(items == nullptr){
+        throw NullPointerException;
+    }
+    for(size_t i = 0; i < count; ++i){
         append(items[i]);
     }
 }
@@ -40,17 +42,15 @@ T LinkedList<T>::GetFirst() const{
     size_t size = GetLength();
     
     if (size == 0 || head == nullptr) {
-        THROW(IndexOutOfRangeException,("GetFirst: список пуст"));
+        throw IndexOutOfRangeException;
     }
     return head->data;
 }
 
 template <class T>
 T LinkedList<T>::GetLast() const{
-    size_t size = GetLength();
-
-    if (size == 0 || tail == nullptr) {
-        THROW(IndexOutOfRangeException,("GetLast: список пуст"));
+    if (tail == nullptr) {
+        throw NullPointerException;
     }
     return tail->data;
 }
@@ -67,33 +67,31 @@ size_t LinkedList<T>::GetLength() const{
 }
 
 template <class T>
-T LinkedList<T>::Get(int index) const{
+T LinkedList<T>::Get(size_t index) const{
     size_t size = GetLength();
-    
-    if (index < 0 || index >= size) {
-        THROW(IndexOutOfRangeException, ("Get: индекс вне диапазона"));
+    if (index >= size) {
+        throw IndexOutOfRangeException(index, size);
     }
 
     return GetNode(index)->data;
 }
 
 template <class T>
-typename LinkedList<T>::Node* LinkedList<T>::GetNode(int index) const{
-    size_t size = GetLength();
-    
-    if (index < 0 || index > size) {
-        THROW(IndexOutOfRangeException, ("GetNode: индекс вне диапазона"));
+typename LinkedList<T>::Node* LinkedList<T>::GetNode(size_t index) const{
+    size_t size = GetLength();   
+    if (index >= size) {
+        throw IndexOutOfRangeException(index, size);
     }
 
     Node* current;
     if (index < size / 2) {
         current = head;
-        for (int i = 0; i < index; ++i) {
+        for (size_t i = 0; i < index; ++i) {
             current = current->next;
         }
     } else {
         current = tail;
-        for (int i = size - 1; i > index; --i){
+        for (size_t i = size - 1; i > index; --i){
             current = current->prev;
         }
     }
@@ -129,11 +127,11 @@ void LinkedList<T>::prepend(T item){
 }
 
 template <class T>
-void LinkedList<T>::insertAt(T item, int index){
+void LinkedList<T>::insertAt(T item, size_t index){
     size_t size = GetLength();
 
-    if (index < 0 || index > size) {
-        THROW(IndexOutOfRangeException, ("Позиция вставки " + std::to_string(index) + " недопустима. Допустимый диапазон: " + std::to_string(size)).c_str());
+    if (index > size) {
+        throw IndexOutOfRangeException(index, size);
     }
 
     if(index == 0){
@@ -156,12 +154,14 @@ void LinkedList<T>::insertAt(T item, int index){
 }
 
 template <class T>
-LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex) const{
-    //TODO: Проверка
+LinkedList<T>* LinkedList<T>::GetSubList(size_t startIndex, size_t endIndex) const{
+    if (startIndex > endIndex || endIndex >= size){
+        throw IndexOutOfRangeException(startIndex, endIndex);
+    }
     LinkedList<T>* SubList = new LinkedList<T>();
     Node* current = GetNode(startIndex);
 
-    for(int i = startIndex; i <= endIndex; ++i){
+    for(size_t i = startIndex; i <= endIndex; ++i){
         SubList->append(current->data);
         current = current->next;
     }
@@ -171,7 +171,9 @@ LinkedList<T>* LinkedList<T>::GetSubList(int startIndex, int endIndex) const{
 
 template <class T>
 LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) const{
-    //TODO: Проверка на nullptr
+    if (list == nullptr){
+        throw EmptyListException;
+    }
     LinkedList<T>* new_list = new LinkedList<T>(*this);
     Node* current = list->head;
 
