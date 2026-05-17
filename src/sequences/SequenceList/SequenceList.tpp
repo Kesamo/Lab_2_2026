@@ -106,3 +106,34 @@ template <class T>
 ListIterator<T> SequenceList<T>::end() const {
     return list.end();
 }
+
+template <class T>
+Sequence<T>* SequenceList<T>::Map(T (*func)(T)) {
+    SequenceList<T>* res = Construct();
+    for(auto item : *this){
+        res->appendInternal(func(item));
+    }
+    return res;
+}
+
+template <class T>
+Sequence<T>* SequenceList<T>::Where(bool (*predicate)(T)) {
+    SequenceList<T>* res = Construct();
+    for (auto item : *this) {
+        if (predicate(item)) {
+            res->appendInternal(item);
+        }
+    }
+    return res;
+}
+
+template<class T>
+Sequence<T>* SequenceList<T>::Reduce(T (*func)(T, T), T starter) {
+    SequenceList<T>* res = Construct();
+    T reduced = starter;
+    for (auto item : *this) {
+        reduced = func(reduced, item);
+    }
+    res->appendInternal(reduced);
+    return res;
+}

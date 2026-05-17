@@ -126,3 +126,34 @@ Sequence<T>* SequenceArray<T>::GetSubsequence(size_t startIndex, size_t endIndex
     
     return res;
 }
+
+template <class T>
+Sequence<T>* SequenceArray<T>::Map(T (*func)(T)) {
+    SequenceArray<T>* res = Construct();
+    for(auto item : *this){
+        res->appendInternal(func(item));
+    }
+    return res;
+}
+
+template <class T>
+Sequence<T>* SequenceArray<T>::Where(bool (*predicate)(T)) {
+    SequenceArray<T>* res = Construct();
+    for (auto item : *this) {
+        if (predicate(item)) {
+            res->appendInternal(item);
+        }
+    }
+    return res;
+}
+
+template<class T>
+Sequence<T>* SequenceArray<T>::Reduce(T (*func)(T, T), T starter) {
+    SequenceArray<T>* res = Construct();
+    T reduced = starter;
+    for (auto item : *this) {
+        reduced = func(reduced, item);
+    }
+    res->appendInternal(reduced);
+    return res;
+}

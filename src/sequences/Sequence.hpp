@@ -21,7 +21,7 @@ class Sequence{
 
         virtual IEnumerator<T>* GetEnumerator() const= 0;
 
-        // virtual Sequence<T>* Map(T2 (*)(T)) const = 0; 
-        // virtual Sequence<T>* Where(bool (*)(T)) const = 0;
-        // virtual Sequence<T>* Reduce(T2 (*)(T2,T)) const = 0;
+        virtual Sequence<T>* Map(T (*func)(T)) = 0; 
+        virtual Sequence<T>* Where(bool (*predicate)(T)) = 0;
+        virtual Sequence<T>* Reduce(T (*func)(T,T), T starter) = 0;
 };

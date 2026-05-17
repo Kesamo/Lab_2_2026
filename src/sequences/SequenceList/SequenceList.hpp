@@ -37,6 +37,10 @@ class SequenceList : public Sequence<T>{
     Sequence<T>* prepend(T value) override;
     Sequence<T>* insertAt(T item, size_t index) override;
     Sequence<T>* Concat(Sequence<T> *seq) const override;
+
+    Sequence<T>* Map(T (*func)(T)) override;
+    Sequence<T>* Where(bool (*predicate)(T)) override;
+    Sequence<T>* Reduce(T (*func)(T, T), T starter) override;
 };
 
 #include "SequenceList.tpp"
