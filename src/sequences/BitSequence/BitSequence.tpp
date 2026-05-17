@@ -32,8 +32,11 @@ BitSequence<T>* BitSequence<T>::prependInternal(Bit<T> value) {
 }
 
 template <std::integral T>
-BitSequence<T>* BitSequence<T>::insertAtInternal(Bit<T> item, int index) {
+BitSequence<T>* BitSequence<T>::insertAtInternal(Bit<T> item, size_t index) {
     size_t size = array.GetSize();
+    if (index > size) {
+        throw IndexOutOfRangeException(index, size);
+    }
     array.Resize(size + 1);
     for( size_t i = size ; i > index; --i){
         array.Set(i,Get(i - 1));
@@ -43,10 +46,13 @@ BitSequence<T>* BitSequence<T>::insertAtInternal(Bit<T> item, int index) {
 }
 
 template <std::integral T>
-Sequence<Bit<T>>* BitSequence<T>::GetSubsequence(int startIndex, int endIndex) const {
+Sequence<Bit<T>>* BitSequence<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
     BitSequence<T>* res = Construct();
+    if (startIndex > endIndex || endIndex >= size){
+        throw IndexOutOfRangeException(startIndex, endIndex);
+    }
 
-    for (int i = startIndex; i <= endIndex; ++i) {
+    for (size_t i = startIndex; i <= endIndex; ++i) {
         res->appendInternal(this->Get(i));
     }
     
@@ -54,8 +60,11 @@ Sequence<Bit<T>>* BitSequence<T>::GetSubsequence(int startIndex, int endIndex) c
 }
 
 template <std::integral T>
-auto BitSequence<T>::Concat(Sequence<Bit<T>> * list) const -> Sequence<Bit<T>>* {
+auto BitSequence<T>::Concat(Sequence<Bit<T>> * seq) const -> Sequence<Bit<T>>* {
     BitSequence<T>* res = Construct();
+    if (seq == nullptr){
+        throw NullPointerException;
+    }
     for( size_t i = 0; i < this->GetLength(); ++i){
         res->appendInternal(this->Get(i));
     }
@@ -76,7 +85,7 @@ Sequence<Bit<T>>* BitSequence<T>::prepend(Bit<T> value) {
 }
 
 template <std::integral T>
-Sequence<Bit<T>>* BitSequence<T>::insertAt(Bit<T> value, int index) {
+Sequence<Bit<T>>* BitSequence<T>::insertAt(Bit<T> value, size_t index) {
     return Instance()->insertAtInternal(value, index);
 }
 
@@ -86,7 +95,7 @@ Bit<T> BitSequence<T>::GetFirst() const {
 }
 
 template <std::integral T>
-Bit<T> BitSequence<T>::Get(int index) const {
+Bit<T> BitSequence<T>::Get(size_t index) const {
     return array.Get(index);
 }
 

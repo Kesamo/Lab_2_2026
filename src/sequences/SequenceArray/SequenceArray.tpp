@@ -6,7 +6,7 @@ template <class T>
 SequenceArray<T>::SequenceArray() : array(DynamicArray<T>()) {}
 
 template <class T>
-SequenceArray<T>::SequenceArray(T* item, int count) : array(DynamicArray<T>(item, count)) {}
+SequenceArray<T>::SequenceArray(T* item, size_t count) : array(DynamicArray<T>(item, count)) {}
 
 template <class T>
 SequenceArray<T>::SequenceArray(const SequenceArray<T>& other) : array(DynamicArray<T>(other.array)){}
@@ -23,7 +23,7 @@ T SequenceArray<T>::GetLast() const {
 }
 
 template <class T>
-T SequenceArray<T>::Get(int index) const {
+T SequenceArray<T>::Get(size_t index) const {
     return array.Get(index);
 }
 
@@ -34,7 +34,7 @@ size_t SequenceArray<T>::GetLength() const {
 
 template <class T>
 SequenceArray<T>* SequenceArray<T>::appendInternal(T value){
-    int size = array.GetSize();
+    size_t size = array.GetSize();
     array.Resize(size + 1);
     array.Set(size,value);
     return this;
@@ -42,9 +42,9 @@ SequenceArray<T>* SequenceArray<T>::appendInternal(T value){
 
 template <class T>
 SequenceArray<T>* SequenceArray<T>::prependInternal(T value){
-    int size = array.GetSize();
+    size_t size = array.GetSize();
     array.Resize(size + 1);
-    for (int i = size; i > 0; --i){
+    for (size_t i = size; i > 0; --i){
         array.Set(i, array.Get(i - 1));
     }
     array.Set(0,value);
@@ -52,13 +52,13 @@ SequenceArray<T>* SequenceArray<T>::prependInternal(T value){
 }
 
 template <class T>
-SequenceArray<T>* SequenceArray<T>::insertAtInternal(T item, int index){
-    int size = array.GetSize();
-    if (index < 0 || index > size) {
-        THROW(IndexOutOfRangeException, ("Позиция вставки " + std::to_string(index) + " недопустима. Допустимый диапазон: " + std::to_string(size)).c_str());
+SequenceArray<T>* SequenceArray<T>::insertAtInternal(T item, size_t index){
+    size_t size = array.GetSize();
+    if (index > size) {
+        throw IndexOutOfRangeException(index, size);
     }
     array.Resize(size + 1);
-    for (int i = size; i > index; --i){
+    for (size_t i = size; i > index; --i){
         array.Set(i, array.Get(i - 1));
     }
     array.Set(index, item);
@@ -68,10 +68,13 @@ SequenceArray<T>* SequenceArray<T>::insertAtInternal(T item, int index){
 template <class T>
 Sequence<T>* SequenceArray<T>::Concat(Sequence<T>* list) const{
     SequenceArray<T>* res = Construct();
-    for (int i = 0; i < this->GetLength(); ++i){
+    if (seq == nullptr){
+        throw NullPointerException;
+    }
+    for (size_t){
         res->appendInternal(this->Get(i));
     }
-    for (int i = 0; i < list->GetLength(); ++i){
+    for (size_t i = 0; i < list->GetLength(); ++i){
         res->appendInternal(list->Get(i));
     }
     return res;
@@ -88,7 +91,7 @@ Sequence<T>* SequenceArray<T>::prepend(T item){
 }
 
 template <class T>
-Sequence<T>* SequenceArray<T>::insertAt(T item, int index){
+Sequence<T>* SequenceArray<T>::insertAt(T item, size_t index){
     return Instance()->insertAtInternal(item, index);
 }
 
@@ -109,10 +112,13 @@ ArrayIterator<T> SequenceArray<T>::end() const {
 
 
 template <class T>
-Sequence<T>* SequenceArray<T>::GetSubsequence(int startIndex, int endIndex) const {
+Sequence<T>* SequenceArray<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
     SequenceArray<T>* res = Construct();
+    if (startIndex > endIndex || endIndex >= size){
+        throw IndexOutOfRangeException(startIndex, endIndex);
+    }
 
-    for (int i = startIndex; i <= endIndex; ++i) {
+    for (size_t i = startIndex; i <= endIndex; ++i) {
         res->appendInternal(this->Get(i));
     }
     

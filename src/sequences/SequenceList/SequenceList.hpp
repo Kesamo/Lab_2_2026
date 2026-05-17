@@ -10,12 +10,12 @@ class SequenceList : public Sequence<T>{
 
     SequenceList<T>* appendInternal(T item);
     SequenceList<T>* prependInternal(T item);
-    SequenceList<T>* insertAtInternal(T item, int index);
+    SequenceList<T>* insertAtInternal(T item, size_t index);
 
     
     public:
     SequenceList();
-    SequenceList(T* items, int count);
+    SequenceList(T* items, size_t count);
     SequenceList(const SequenceList<T>& other);
 
     virtual SequenceList<T>* Instance() = 0;
@@ -29,13 +29,13 @@ class SequenceList : public Sequence<T>{
 
     T GetFirst() const override;
     T GetLast() const override;
-    T Get(int index) const override;
+    T Get(size_t index) const override;
     size_t GetLength() const override;
-    Sequence<T>* GetSubsequence(int startIndex, int endIndex) const override;
+    Sequence<T>* GetSubsequence(size_t startIndex, size_t endIndex) const override;
     
     Sequence<T>* append(T value) override;
     Sequence<T>* prepend(T value) override;
-    Sequence<T>* insertAt(T item, int index) override;
+    Sequence<T>* insertAt(T item, size_t index) override;
     Sequence<T>* Concat(Sequence<T> *seq) const override;
 };
 

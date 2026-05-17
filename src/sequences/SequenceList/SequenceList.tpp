@@ -6,7 +6,7 @@ template <class T>
 SequenceList<T>::SequenceList() : list(LinkedList<T>()) {}
 
 template <class T>
-SequenceList<T>::SequenceList(T* items, int count) : list(LinkedList( items, count)) {}
+SequenceList<T>::SequenceList(T* items, size_t count) : list(LinkedList( items, count)) {}
 
 template <class T>
 SequenceList<T>::SequenceList(const SequenceList<T>& other) : list(LinkedList<T>(other.list)) {}
@@ -24,7 +24,7 @@ SequenceList<T>* SequenceList<T>::prependInternal(T item){
 }
 
 template <class T>
-SequenceList<T>* SequenceList<T>::insertAtInternal(T item, int index){
+SequenceList<T>* SequenceList<T>::insertAtInternal(T item, size_t index){
     list.insertAt(item, index);
     return this;
 }
@@ -40,7 +40,7 @@ T SequenceList<T>::GetLast() const {
 }
 
 template <class T>
-T SequenceList<T>::Get(int index) const {
+T SequenceList<T>::Get(size_t index) const {
     return list.Get(index);
 }
 
@@ -50,9 +50,12 @@ size_t SequenceList<T>::GetLength() const {
 }
 
 template <class T>
-Sequence<T>* SequenceList<T>::GetSubsequence(int startIndex, int endIndex) const {
+Sequence<T>* SequenceList<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
     SequenceList<T>* res = Construct();
-    for (int i = startIndex; i <= endIndex; ++i){
+    if (startIndex > endIndex || endIndex >= size){
+        throw IndexOutOfRangeException(startIndex, endIndex);
+    }
+    for (size_t i = startIndex; i <= endIndex; ++i){
             res->appendInternal(list.Get(i));
     }
     return res;
@@ -69,7 +72,7 @@ Sequence<T>* SequenceList<T>::prepend(T value){
 }
 
 template <class T>
-Sequence<T>* SequenceList<T>::insertAt(T item, int index){
+Sequence<T>* SequenceList<T>::insertAt(T item, size_t index){
     return Instance()->insertAtInternal(item, index);
 }
 
@@ -81,10 +84,13 @@ IEnumerator<T>* SequenceList<T>::GetEnumerator() const{
 template <class T>
 Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq) const{
     SequenceList<T>* res = Construct();
-    for (int i = 0; i < GetLength(); ++i){
+    if (seq == nullptr){
+        throw EmptyListException;
+    }
+    for (size_t i = 0; i < GetLength(); ++i){
         res->appendInternal(Get(i));
     }
-    for (int i = 0; i < seq->GetLength(); ++i){
+    for (size_t i = 0; i < seq->GetLength(); ++i){
         res->appendInternal(seq->Get(i));
     }
     return res;

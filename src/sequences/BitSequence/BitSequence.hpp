@@ -11,7 +11,7 @@ private:
 
     BitSequence<T>* appendInternal(Bit<T> item);
     BitSequence<T>* prependInternal(Bit<T> item);
-    BitSequence<T>* insertAtInternal(Bit<T> item, int index);
+    BitSequence<T>* insertAtInternal(Bit<T> item, size_t index);
     
     
     public:
@@ -29,15 +29,15 @@ private:
 
     Bit<T> GetFirst() const override;
     Bit<T> GetLast() const override;
-    Bit<T> Get(int index) const override;
+    Bit<T> Get(size_t index) const override;
     size_t GetLength() const override;
-    Sequence<Bit<T>>* GetSubsequence(int startIndex, int endIndex) const override;
+    Sequence<Bit<T>>* GetSubsequence(size_t startIndex, size_t endIndex) const override;
     
     IEnumerator<Bit<T>>* GetEnumerator() const override;
 
     Sequence<Bit<T>>* append(Bit<T> value) override;
     Sequence<Bit<T>>* prepend(Bit<T> value) override;
-    Sequence<Bit<T>>* insertAt(Bit<T> item, int index) override;
+    Sequence<Bit<T>>* insertAt(Bit<T> item, size_t index) override;
     Sequence<Bit<T>>* Concat(Sequence<Bit<T>> *list) const override;
 
 
