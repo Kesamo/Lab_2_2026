@@ -125,7 +125,7 @@ TEST_F(MutableSequenceArrayTest, test_Concat_plus_empty) {
 TEST_F(MutableSequenceArrayTest, test_negativ) {
     EXPECT_THROW(seq->Get(-1), IndexOutOfRangeException);
     EXPECT_THROW(seq->insertAt(10, -1), IndexOutOfRangeException);
-    EXPECT_THROW(seq->GetSubsequence(-1, 2), IndexOutOfRangeException);
+    EXPECT_THROW(seq->GetSubsequence(-1, 2), InvalidRangeException);
 }
 
 class ImmutablSequenceArrayTest : public ::testing::Test {
