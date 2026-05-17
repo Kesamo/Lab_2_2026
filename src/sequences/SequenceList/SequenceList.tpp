@@ -88,8 +88,8 @@ Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq) const{
     if (seq == nullptr){
         throw EmptyListException();
     }
-    for (size_t i = 0; i < GetLength(); ++i){
-        res->appendInternal(Get(i));
+    for (auto item : *this){
+        res->appendInternal(item);
     }
     for (size_t i = 0; i < seq->GetLength(); ++i){
         res->appendInternal(seq->Get(i));

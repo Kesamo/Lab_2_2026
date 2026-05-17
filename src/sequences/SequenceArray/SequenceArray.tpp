@@ -71,8 +71,8 @@ Sequence<T>* SequenceArray<T>::Concat(Sequence<T>* list) const{
     if (list == nullptr){
         throw NullPointerException();
     }
-    for (int i = 0; i < this->GetLength(); ++i){
-        res->appendInternal(this->Get(i));
+    for (auto item : *this) {
+        res->appendInternal(item);
     }
     for (size_t i = 0; i < list->GetLength(); ++i){
         res->appendInternal(list->Get(i));
@@ -109,6 +109,7 @@ template <class T>
 ArrayIterator<T> SequenceArray<T>::end() const {
     return array.end();
 }
+
 
 
 template <class T>

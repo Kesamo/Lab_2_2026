@@ -66,8 +66,8 @@ auto BitSequence<T>::Concat(Sequence<Bit<T>> * list) const -> Sequence<Bit<T>>* 
     if (list == nullptr){
         throw NullPointerException();
     }
-    for( size_t i = 0; i < this->GetLength(); ++i){
-        res->appendInternal(this->Get(i));
+    for (auto item : *this) {
+        res->appendInternal(item);
     }
     for( size_t i = 0; i < list->GetLength(); ++i){
         res->appendInternal(list->Get(i));

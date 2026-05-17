@@ -176,13 +176,9 @@ LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) const{
         throw EmptyListException();
     }
     LinkedList<T>* new_list = new LinkedList<T>(*this);
-    Node* current = list->head;
-
-    while(current != nullptr){
-        new_list->append(current->data);
-        current = current->next;
+    for(auto item : list){
+        new_list->append(item);
     }
-    
     return new_list;
 }
 
