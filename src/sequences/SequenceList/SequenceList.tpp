@@ -52,8 +52,9 @@ size_t SequenceList<T>::GetLength() const {
 template <class T>
 Sequence<T>* SequenceList<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
     SequenceList<T>* res = Construct();
-    if (startIndex > endIndex || endIndex >= size){
-        throw IndexOutOfRangeException(startIndex, endIndex);
+    size_t size = GetLength();
+    if (startIndex > endIndex || endIndex > size){
+        throw InvalidRangeException(startIndex, endIndex);
     }
     for (size_t i = startIndex; i <= endIndex; ++i){
             res->appendInternal(list.Get(i));
@@ -85,7 +86,7 @@ template <class T>
 Sequence<T>* SequenceList<T>::Concat(Sequence<T>* seq) const{
     SequenceList<T>* res = Construct();
     if (seq == nullptr){
-        throw EmptyListException;
+        throw EmptyListException();
     }
     for (size_t i = 0; i < GetLength(); ++i){
         res->appendInternal(Get(i));

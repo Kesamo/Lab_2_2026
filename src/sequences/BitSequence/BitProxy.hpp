@@ -6,7 +6,7 @@
 
 inline std::vector<bool> b;
 
-template <std::integral T = char>
+template <std::integral T>
 struct BitProxy {
     T& ref;
     size_t idx;

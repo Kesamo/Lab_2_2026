@@ -31,10 +31,12 @@ public:
 
     IndexOutOfRangeException(const std::source_location loc = std::source_location::current()) 
     : Exception(std::format("Список пуст"), loc.file_name(), loc.function_name()) {}
+};
 
-    IndexOutOfRangeException(size_t startidx, size_t endidx,const std::source_location loc = std::source_location::current()) 
+class InvalidRangeException : public Exception {
+public:
+    InvalidRangeException(size_t startidx, size_t endidx, const std::source_location loc = std::source_location::current()) 
     : Exception(std::format("Не корекнтный диопозон от {} до {}",startidx ,endidx ), loc.file_name(), loc.function_name()) {}
-
 };
 
 class InvalidArgumentException : public Exception {

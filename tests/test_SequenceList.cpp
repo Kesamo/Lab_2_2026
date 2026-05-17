@@ -102,7 +102,7 @@ TEST_F(MutableSequenceListTest, test_throw_empty) {
     EXPECT_EQ(mut.GetLength(), 0);
     
     EXPECT_THROW(mut.GetFirst(), IndexOutOfRangeException);
-    EXPECT_THROW(mut.GetLast(), IndexOutOfRangeException);
+    EXPECT_THROW(mut.GetLast(), NullPointerException);
     EXPECT_THROW(mut.Get(0), IndexOutOfRangeException);
     
     mut.append(42);
@@ -125,7 +125,7 @@ TEST_F(MutableSequenceListTest, test_Concat_plus_empty) {
 TEST_F(MutableSequenceListTest, test_negativ) {
     EXPECT_THROW(seq->Get(-1), IndexOutOfRangeException);
     EXPECT_THROW(seq->insertAt(10, -1), IndexOutOfRangeException);
-    EXPECT_THROW(seq->GetSubsequence(-1, 2), IndexOutOfRangeException);
+    EXPECT_THROW(seq->GetSubsequence(-1, 2), InvalidRangeException);
 }
 
 class ImmutableSequenceListTest : public ::testing::Test{

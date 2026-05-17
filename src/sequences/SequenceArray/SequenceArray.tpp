@@ -68,10 +68,10 @@ SequenceArray<T>* SequenceArray<T>::insertAtInternal(T item, size_t index){
 template <class T>
 Sequence<T>* SequenceArray<T>::Concat(Sequence<T>* list) const{
     SequenceArray<T>* res = Construct();
-    if (seq == nullptr){
-        throw NullPointerException;
+    if (list == nullptr){
+        throw NullPointerException();
     }
-    for (size_t){
+    for (int i = 0; i < this->GetLength(); ++i){
         res->appendInternal(this->Get(i));
     }
     for (size_t i = 0; i < list->GetLength(); ++i){
@@ -114,8 +114,9 @@ ArrayIterator<T> SequenceArray<T>::end() const {
 template <class T>
 Sequence<T>* SequenceArray<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
     SequenceArray<T>* res = Construct();
+    size_t size = array.GetSize();
     if (startIndex > endIndex || endIndex >= size){
-        throw IndexOutOfRangeException(startIndex, endIndex);
+        throw InvalidRangeException(startIndex, endIndex);
     }
 
     for (size_t i = startIndex; i <= endIndex; ++i) {

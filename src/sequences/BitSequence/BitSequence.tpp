@@ -48,8 +48,9 @@ BitSequence<T>* BitSequence<T>::insertAtInternal(Bit<T> item, size_t index) {
 template <std::integral T>
 Sequence<Bit<T>>* BitSequence<T>::GetSubsequence(size_t startIndex, size_t endIndex) const {
     BitSequence<T>* res = Construct();
+    size_t size = array.GetSize();
     if (startIndex > endIndex || endIndex >= size){
-        throw IndexOutOfRangeException(startIndex, endIndex);
+        throw InvalidRangeException(startIndex, endIndex);
     }
 
     for (size_t i = startIndex; i <= endIndex; ++i) {
@@ -60,10 +61,10 @@ Sequence<Bit<T>>* BitSequence<T>::GetSubsequence(size_t startIndex, size_t endIn
 }
 
 template <std::integral T>
-auto BitSequence<T>::Concat(Sequence<Bit<T>> * seq) const -> Sequence<Bit<T>>* {
+auto BitSequence<T>::Concat(Sequence<Bit<T>> * list) const -> Sequence<Bit<T>>* {
     BitSequence<T>* res = Construct();
-    if (seq == nullptr){
-        throw NullPointerException;
+    if (list == nullptr){
+        throw NullPointerException();
     }
     for( size_t i = 0; i < this->GetLength(); ++i){
         res->appendInternal(this->Get(i));
@@ -136,11 +137,11 @@ IEnumerator<Bit<T>>* BitSequence<T>::GetEnumerator() const{
 }
 
 template <std::integral T>
-ArrayIterator<T> BitSequence<T>::begin() const {
+ArrayIterator<Bit<T>> BitSequence<T>::begin() const {
     return array.begin();
 }
 
 template <std::integral T>
-ArrayIterator<T> BitSequence<T>::end() const {
+ArrayIterator<Bit<T>> BitSequence<T>::end() const {
     return array.end();
 }

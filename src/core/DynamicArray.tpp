@@ -75,7 +75,7 @@ void DynamicArray<T>::Set(size_t index, T value){
 template <class T>
 void DynamicArray<T>::Resize(size_t newSize) {
     if (newSize < 0) {
-        throw InvalidArgumentException;
+        throw InvalidArgumentException();
     }
     T* newData = new T[newSize];
     int count = (newSize < array_size) ? newSize : array_size;

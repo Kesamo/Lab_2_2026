@@ -20,8 +20,8 @@ private:
     BitSequence(Bit<T>* item, size_t count);
     BitSequence(const BitSequence<T> & other);
 
-    ArrayIterator<T> begin() const ;
-    ArrayIterator<T> end() const ;
+    ArrayIterator<Bit<T>> begin() const ;
+    ArrayIterator<Bit<T>> end() const ;
 
     virtual BitSequence<T>* Instance() = 0;
     virtual BitSequence<T>* Clone() const = 0;

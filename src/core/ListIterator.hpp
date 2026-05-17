@@ -15,7 +15,7 @@ public:
 
     T& Current() const override {
         if(current_ == nullptr){
-            return throw IteratorPointerException;
+            throw IteratorPointerException();
         }
         return current_->data;
     }

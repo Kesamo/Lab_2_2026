@@ -11,7 +11,7 @@ LinkedList<T>::LinkedList(){
 template <class T>
 LinkedList<T>::LinkedList(T* items, size_t count) : LinkedList(){
     if(items == nullptr){
-        throw NullPointerException;
+        throw NullPointerException();
     }
     for(size_t i = 0; i < count; ++i){
         append(items[i]);
@@ -42,7 +42,7 @@ T LinkedList<T>::GetFirst() const{
     size_t size = GetLength();
     
     if (size == 0 || head == nullptr) {
-        throw IndexOutOfRangeException;
+        throw IndexOutOfRangeException();
     }
     return head->data;
 }
@@ -50,7 +50,7 @@ T LinkedList<T>::GetFirst() const{
 template <class T>
 T LinkedList<T>::GetLast() const{
     if (tail == nullptr) {
-        throw NullPointerException;
+        throw NullPointerException();
     }
     return tail->data;
 }
@@ -155,8 +155,9 @@ void LinkedList<T>::insertAt(T item, size_t index){
 
 template <class T>
 LinkedList<T>* LinkedList<T>::GetSubList(size_t startIndex, size_t endIndex) const{
+    size_t size = GetLength();
     if (startIndex > endIndex || endIndex >= size){
-        throw IndexOutOfRangeException(startIndex, endIndex);
+        throw InvalidRangeException(startIndex, endIndex);
     }
     LinkedList<T>* SubList = new LinkedList<T>();
     Node* current = GetNode(startIndex);
@@ -172,7 +173,7 @@ LinkedList<T>* LinkedList<T>::GetSubList(size_t startIndex, size_t endIndex) con
 template <class T>
 LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) const{
     if (list == nullptr){
-        throw EmptyListException;
+        throw EmptyListException();
     }
     LinkedList<T>* new_list = new LinkedList<T>(*this);
     Node* current = list->head;
