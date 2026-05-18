@@ -145,7 +145,7 @@ public:
             return "";
         }
         const char* t[] = { "Array", "List", "Bit" };
-        const char* m[] = { "Mutabel", "Immutabele"};
+        const char* m[] = { "Mutable", "Immutable"};
         return std::format("{}){}_{}",idx + 1, t[node->seq_idx], m[node->mut_idx]);
     }
 
