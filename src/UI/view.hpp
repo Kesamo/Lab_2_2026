@@ -119,7 +119,7 @@ private:
                 if (!std::isdigit(c)){ 
                     return true;
                 }
-                std::string future = input_val + c;
+                std::string future = input_idx + c;
                 if (future.size() > 3){ 
                     return true;
                 }
@@ -135,17 +135,29 @@ private:
         input_val_comp |= CatchEvent([&](Event e) {
         if (e.is_character()) {
                 char c = e.character()[0];
-                if (!std::isdigit(c)){ 
+                if (!std::isdigit(c) && c != '-'){ 
                     return true;
                 }
+
+                if (c == '-'){
+                    if (!input_val.empty()) {
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+
                 std::string future = input_val + c;
-                if (future.size() > 3){ 
+                if (future.size() > 10){ 
                     return true;
                 }
                 int num = std::stoi(future);    
-                if (num > 255){ 
+                if (-2147483647 > num > 2147483647){ 
                     return true;
                 }
+
+
             }
             return false;
         });
@@ -157,7 +169,7 @@ private:
                 if (!std::isdigit(c)){ 
                     return true;
                 }
-                std::string future = input_val + c;
+                std::string future = input_end_idx + c;
                 if (future.size() > 3){ 
                     return true;
                 }
@@ -178,21 +190,21 @@ private:
 
     void Append(){
         if (!input_val.empty()) {
-            manager.addAppend(selected_container, static_cast<uint8_t>(std::stoi(input_val)));
+            manager.addAppend(selected_container, static_cast<int>(std::stoi(input_val)));
             RefreshContainer();
         }
     }
 
     void Prepend(){
         if (!input_val.empty()) {
-            manager.addPrepend(selected_container, static_cast<uint8_t>(std::stoi(input_val)));
+            manager.addPrepend(selected_container, static_cast<int>(std::stoi(input_val)));
             RefreshContainer();
         }
     }
 
     void InsertAt(){
         if (!input_val.empty() && !input_idx.empty()) {
-            manager.addInsertAt(selected_container, static_cast<uint8_t>(std::stoi(input_val)), std::stoi(input_idx));
+            manager.addInsertAt(selected_container, static_cast<int>(std::stoi(input_val)), std::stoi(input_idx));
             RefreshContainer();
         }
     }
@@ -266,8 +278,6 @@ private:
                 hbox({text("Index:"), input_idx_comp->Render()}),
                 hbox({text("IndexEnd:"), input_end_idx_comp->Render()}),
                 hbox({text("Value:"), input_val_comp->Render()}),
-                filler(),
-                text("Просьба: Дорогой пользователь, вводи значения от 0 до 255 в отведённые для этого строки ;)")| dim 
             });
             
             return vbox({

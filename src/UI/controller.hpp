@@ -10,7 +10,7 @@
 class Storage{
 private:
     struct Node {
-        Sequence<uint8_t>* seq;
+        Sequence<int>* seq;
         size_t seq_idx;
         size_t mut_idx;
         Node* next;
@@ -26,7 +26,7 @@ public:
         return count;
     }
 
-    void push(Sequence<uint8_t>* seq, size_t seq_idx, size_t mut_idx) {
+    void push(Sequence<int>* seq, size_t seq_idx, size_t mut_idx) {
         Node* node = new Node{seq, seq_idx, mut_idx, nullptr};
         if(tail){
             tail->next = node;
@@ -91,22 +91,22 @@ private:
 public:
 
     void create(size_t seq_idx, size_t mut_idx) {
-        Sequence<uint8_t>* seq;
+        Sequence<int>* seq;
         switch (seq_idx) {
             case 0:
                 if(mut_idx == 0){
-                    seq = new MutableSequenceArray<uint8_t>();
+                    seq = new MutableSequenceArray<int>();
                 }
                 else{
-                    seq = new ImmutableSequenceArray<uint8_t>();
+                    seq = new ImmutableSequenceArray<int>();
                 }
                 break;
             case 1: 
                 if(mut_idx == 0){
-                    seq = new MutableSequenceList<uint8_t>();
+                    seq = new MutableSequenceList<int>();
                 }
                 else{
-                    seq = new ImmutableSequenceList<uint8_t>();
+                    seq = new ImmutableSequenceList<int>();
                 }
                 break;
             default:
@@ -121,7 +121,7 @@ public:
         stor.delet(idx);
     }
 
-    Sequence<uint8_t>* get(size_t idx) {
+    Sequence<int>* get(size_t idx) {
         auto node = stor.get(idx);
         if(node){
             return node->seq;
@@ -131,7 +131,7 @@ public:
         }
     }
 
-    void push(Sequence<uint8_t>* seq, size_t seq_idx, size_t mut_idx){
+    void push(Sequence<int>* seq, size_t seq_idx, size_t mut_idx){
         stor.push(seq, seq_idx, mut_idx);
     }
 
@@ -169,40 +169,40 @@ public:
         return res;
     }
 
-    void addAppend(size_t current, uint8_t value){
+    void addAppend(size_t current, int value){
         auto node = stor.get(current);
         if(node){
             if(node->mut_idx == 0){
                 node->seq->append(value);
             }
             else{
-                Sequence<uint8_t>* newSeq = node->seq->append(value);
+                Sequence<int>* newSeq = node->seq->append(value);
                 stor.push(newSeq, node->seq_idx, node->mut_idx);
             }
         }
     }
 
-    void addPrepend(size_t current, uint8_t value){
+    void addPrepend(size_t current, int value){
         auto node = stor.get(current);
         if(node){
             if(node->mut_idx == 0){
                 node->seq->prepend(value);
             }
             else{
-                Sequence<uint8_t>* newSeq = node->seq->prepend(value);
+                Sequence<int>* newSeq = node->seq->prepend(value);
                 stor.push(newSeq, node->seq_idx, node->mut_idx);
             }
         }
     }
 
-    void addInsertAt(size_t current, uint8_t value, size_t idx){
+    void addInsertAt(size_t current, int value, size_t idx){
         auto node = stor.get(current);
         if(node){
             if(node->mut_idx == 0){
                 node->seq->insertAt(value,idx);
             }
             else{
-                Sequence<uint8_t>* newSeq = node->seq->insertAt(value,idx);
+                Sequence<int>* newSeq = node->seq->insertAt(value,idx);
                 stor.push(newSeq, node->seq_idx, node->mut_idx);
             }
         }
@@ -212,9 +212,9 @@ public:
         auto node_curr = stor.get(current);
         auto node_idx = stor.get(idx);
         if (node_curr && node_idx){
-            Sequence<uint8_t>* seq1 = node_curr->seq;
-            Sequence<uint8_t>* seq2 = node_idx->seq;
-            Sequence<uint8_t>* result = seq1->Concat(seq2);
+            Sequence<int>* seq1 = node_curr->seq;
+            Sequence<int>* seq2 = node_idx->seq;
+            Sequence<int>* result = seq1->Concat(seq2);
     
             stor.push(result, node_curr->seq_idx, node_curr->mut_idx);
         }
@@ -223,7 +223,7 @@ public:
     void addGetSubsequence(size_t current, size_t start, size_t end){
         auto node = stor.get(current);
         if(node && start <= end && end < node->seq->GetLength()){
-            Sequence<uint8_t>* sub = node->seq->GetSubsequence(start, end);
+            Sequence<int>* sub = node->seq->GetSubsequence(start, end);
             stor.push(sub, node->seq_idx, node->mut_idx);
         }
     }

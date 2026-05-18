@@ -17,6 +17,7 @@
 #include "ftxui/screen/box.hpp"
 #include "Sequence.hpp"
 #include "UI/view.hpp"
+#include "utils/Exceptions.hpp"
 
 #include <chrono> 
 using namespace std::chrono_literals;
@@ -136,7 +137,11 @@ using namespace ftxui;
 // }
 
 int main() {
-    SequenceUI app;
-    app.Run();
-    return 0;
+    try{
+        SequenceUI app;
+        app.Run();
+    }
+    catch(const Exception& e){
+        std::cerr << "Ошибка:" << e.what() << std::endl;
+    }
 }
