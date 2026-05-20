@@ -176,7 +176,7 @@ LinkedList<T>* LinkedList<T>::Concat(LinkedList<T> *list) const{
         throw EmptyListException();
     }
     LinkedList<T>* new_list = new LinkedList<T>(*this);
-    for(auto item : list){
+    for(auto item : *list){
         new_list->append(item);
     }
     return new_list;
