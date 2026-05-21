@@ -43,6 +43,10 @@ private:
 
     auto operator[](size_t idx);
     auto operator[](size_t idx) const;
+
+    Sequence<Bit<T>>* Map(Bit<T> (*func)(Bit<T>)) override;
+    Sequence<Bit<T>>* Where(bool (*predicate)(Bit<T>)) override;
+    Sequence<Bit<T>>* Reduce(Bit<T> (*func)(Bit<T>, Bit<T>), Bit<T> starter) override;
 };
 
 #include "BitSequence.tpp"

@@ -145,3 +145,34 @@ template <std::integral T>
 ArrayIterator<Bit<T>> BitSequence<T>::end() const {
     return array.end();
 }
+
+template <std::integral T>
+Sequence<Bit<T>>* BitSequence<T>::Map(Bit<T> (*func)(Bit<T>)) {
+    BitSequence<T>* res = Construct();
+    for(auto item : *this){
+        res->appendInternal(func(item));
+    }
+    return res;
+}
+
+template <std::integral T>
+Sequence<Bit<T>>* BitSequence<T>::Where(bool (*predicate)(Bit<T>)) {
+    BitSequence<T>* res = Construct();
+    for (auto item : *this) {
+        if (predicate(item)) {
+            res->appendInternal(item);
+        }
+    }
+    return res;
+}
+
+template <std::integral T>
+Sequence<Bit<T>>* BitSequence<T>::Reduce(Bit<T> (*func)(Bit<T>, Bit<T>), Bit<T> starter) {
+    BitSequence<T>* res = Construct();
+    Bit<T> reduced = starter;
+    for (auto item : *this) {
+        reduced = func(reduced, item);
+    }
+    res->appendInternal(reduced);
+    return res;
+}

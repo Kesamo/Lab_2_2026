@@ -11,9 +11,9 @@ TEST(MenegerTest, test_creat_mut) {
     Manager m;
     m.create(0, 0);
     EXPECT_EQ(m.size(), 1);
-    Sequence<uint8_t>* seq = m.get(0);
+    Sequence<int>* seq = m.get(0);
     ASSERT_NE(seq, nullptr);
-    EXPECT_EQ(m.getName(0), "1)Array_Mutabel");
+    EXPECT_EQ(m.getName(0), "1)Array_Mutable");
 }
 
 TEST(MenegerTest, test_creat_immut) {
@@ -22,7 +22,7 @@ TEST(MenegerTest, test_creat_immut) {
     EXPECT_EQ(m.size(), 1);
     auto* seq = m.get(0);
     ASSERT_NE(seq, nullptr);
-    EXPECT_EQ(m.getName(0), "1)Array_Immutabele");
+    EXPECT_EQ(m.getName(0), "1)Array_Immutable");
 }
 
 TEST(MenegerTest, test_creat) {
@@ -30,8 +30,8 @@ TEST(MenegerTest, test_creat) {
     m.create(0, 0);
     m.create(1, 1);
     EXPECT_EQ(m.size(), 2);
-    EXPECT_EQ(m.getName(0), "1)Array_Mutabel");
-    EXPECT_EQ(m.getName(1), "2)List_Immutabele");
+    EXPECT_EQ(m.getName(0), "1)Array_Mutable");
+    EXPECT_EQ(m.getName(1), "2)List_Immutable");
 }
 
 TEST(MenegerTest, test_remove) {
@@ -41,7 +41,7 @@ TEST(MenegerTest, test_remove) {
     EXPECT_EQ(m.size(), 2);
     m.remove(0);
     EXPECT_EQ(m.size(), 1);
-    EXPECT_EQ(m.getName(0), "1)List_Immutabele");
+    EXPECT_EQ(m.getName(0), "1)List_Immutable");
 }
 
 TEST(MenegerTest, test_get_nullptr) {
@@ -60,7 +60,7 @@ TEST(MenegerTest, test_getName) {
 
 TEST(MenegerTest, test_storage_node) {
     Storage s;
-    auto* seq = new MutableSequenceArray<uint8_t>();
+    auto* seq = new MutableSequenceArray<int>();
     s.push(seq, 0, 0);
     EXPECT_EQ(s.size(), 1);
     auto* node = s.get(0);
