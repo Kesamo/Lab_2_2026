@@ -8,7 +8,7 @@ private:
     const T* data_;
     size_t index_;
     size_t size_;
-    size_t start_
+    size_t start_;
 public:
     ArrayIterator(const T* data, size_t size, size_t startIndex) : data_(data), index_(startIndex), size_(size), start_(startIndex) {}
     T& Current() const override {
