@@ -18,6 +18,8 @@
 #include "Sequence.hpp"
 #include "UI/view.hpp"
 #include "utils/Exceptions.hpp"
+#include "BitSequence/BitProxy.hpp"
+#include "BitSequence/BitSequence.hpp"
 
 #include <chrono> 
 using namespace std::chrono_literals;
@@ -144,4 +146,32 @@ int main() {
     catch(const Exception& e){
         std::cerr << "Ошибка:" << e.what() << std::endl;
     }
+    // MutableBitSequence<int>* seq = nullptr;
+    // Bit<int> arr[] = {3, 6, 7, 8};
+    // seq = new MutableBitSequence<int>(arr, 4);
+
+    // int also = seq->GetAsInteger(1);
+    // std::cout << also << std::endl; 
+
+    // std::cout << seq->Get(1)[2] << ",";
+    // std::cout << seq->Get(1)[1] << ",";
+    // std::cout << seq->Get(1)[0] << std::endl;
+
+    // seq->GetMutable(1)[4] = 1;
+
+    // std::cout << seq->Get(1)[4] << ",";
+    // std::cout << seq->Get(1)[3] << ",";
+    // std::cout << seq->Get(1)[2] << ",";
+    // std::cout << seq->Get(1)[1] << ",";
+    // std::cout << seq->Get(1)[0] << std::endl;
+
+    // int also_ = seq->GetAsInteger(1);
+    // std::cout << also_ << std::endl;
+
+    // for(int i = 0; i < 4; i++){
+    //     std::cout << seq->GetAsInteger(i) << ",";
+    // }
+
+    
+
 }

@@ -157,3 +157,18 @@ Sequence<T>* SequenceArray<T>::Reduce(T (*func)(T, T), T starter) {
     res->appendInternal(reduced);
     return res;
 }
+
+template<class T>
+SequenceArray<T>* SequenceArray<T>::RemoveLastInternal(){
+    size_t size = array.GetSize();
+    if(size == 0){
+        throw IndexOutOfRangeException();
+    }
+    array.Resize(size - 1);
+    return this;
+}
+
+template<class T>
+Sequence<T>* SequenceArray<T>::RemoveLast(){
+    return Instance()->RemoveLastInternal();
+}

@@ -206,3 +206,18 @@ template <class T>
 ListIterator<T> LinkedList<T>::end() const{
     return ListIterator<T>(nullptr);
 }
+
+template<class T>
+void LinkedList<T>::RemoveLast(){
+    if (tail == nullptr){
+        throw EmptyListException();
+    }
+    Node* current = tail;
+    if (head == tail) {
+        head = tail = nullptr;
+    } else {
+        tail = tail->prev;
+        tail->next = nullptr;
+    }
+    delete current;
+}

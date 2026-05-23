@@ -97,7 +97,7 @@ Bit<T> BitSequence<T>::GetFirst() const {
 
 template <std::integral T>
 Bit<T> BitSequence<T>::Get(size_t index) const {
-    return array.Get(index);
+    return array[index];
 }
 
 template <std::integral T>
@@ -175,4 +175,33 @@ Sequence<Bit<T>>* BitSequence<T>::Reduce(Bit<T> (*func)(Bit<T>, Bit<T>), Bit<T> 
     }
     res->appendInternal(reduced);
     return res;
+}
+
+
+template <std::integral T>
+T BitSequence<T>::GetAsInteger(size_t index) const {
+    const Bit<T>& bit = this->Get(index);
+    T res = 0;
+    size_t size = sizeof(T) * 8;
+    for (size_t i = 0; i < size; ++i) {
+        if (bit[i]) {
+            res |= (T(1) << i);
+        }
+    }
+    return res;
+}
+
+template <std::integral T>
+Sequence<Bit<T>>* BitSequence<T>::RemoveLast(){
+    return Instance()->RemoveLastInternal();
+}
+
+template <std::integral T>
+BitSequence<T>* BitSequence<T>::RemoveLastInternal(){
+    size_t size = array.GetSize();
+    if(size == 0){
+        throw IndexOutOfRangeException();
+    }
+    array.Resize(size - 1);
+    return this;
 }

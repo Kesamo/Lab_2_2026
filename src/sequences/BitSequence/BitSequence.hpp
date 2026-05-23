@@ -12,6 +12,7 @@ private:
     BitSequence<T>* appendInternal(Bit<T> item);
     BitSequence<T>* prependInternal(Bit<T> item);
     BitSequence<T>* insertAtInternal(Bit<T> item, size_t index);
+    BitSequence<T>* RemoveLastInternal();
     
     
     public:
@@ -39,7 +40,13 @@ private:
     Sequence<Bit<T>>* prepend(Bit<T> value) override;
     Sequence<Bit<T>>* insertAt(Bit<T> item, size_t index) override;
     Sequence<Bit<T>>* Concat(Sequence<Bit<T>> *list) const override;
+    Sequence<Bit<T>>* RemoveLast() override;
 
+    T GetAsInteger(size_t index) const;
+
+    Bit<T>& GetMutable(size_t index){
+        return array[index];
+    }
 
     auto operator[](size_t idx);
     auto operator[](size_t idx) const;

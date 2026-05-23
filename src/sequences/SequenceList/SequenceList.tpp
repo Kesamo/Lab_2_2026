@@ -137,3 +137,17 @@ Sequence<T>* SequenceList<T>::Reduce(T (*func)(T, T), T starter) {
     res->appendInternal(reduced);
     return res;
 }
+
+template<class T>
+SequenceList<T>* SequenceList<T>::RemoveLastInternal(){
+    if(list.GetLength() == 0){
+        throw EmptyListException();
+    }
+    list.RemoveLast();
+    return this;
+}
+
+template<class T>
+Sequence<T>* SequenceList<T>::RemoveLast(){
+    return Instance()->RemoveLastInternal();
+}

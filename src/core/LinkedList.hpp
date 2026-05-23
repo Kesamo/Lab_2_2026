@@ -39,6 +39,8 @@ public:
     T Get(size_t index) const; 
     size_t GetLength() const; 
 
+    void RemoveLast();
+
     void append(T item); 
     void prepend(T item); 
     void insertAt(T item, size_t index); 
