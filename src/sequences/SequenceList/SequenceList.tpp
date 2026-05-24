@@ -163,5 +163,5 @@ SequenceList<T>* SequenceList<T>::RemoveFirstInternal() {
 
 template <class T>
 Sequence<T>* SequenceList<T>::RemoveFirst() {
-    return Instance()->removeFirstInternal();
+    return Instance()->RemoveFirstInternal();
 }
