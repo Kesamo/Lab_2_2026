@@ -221,3 +221,18 @@ void LinkedList<T>::RemoveLast(){
     }
     delete current;
 }
+
+template <class T>
+void LinkedList<T>::RemoveFirst() {
+    if (tail == nullptr){
+        throw EmptyListException();
+    }
+    Node* current = head;
+    if (head == tail) {
+        head = tail = nullptr;
+    } else { 
+        head = head->next; 
+        head->prev = nullptr; 
+    }
+    delete current;
+}

@@ -12,6 +12,7 @@ class SequenceList : public Sequence<T>{
     SequenceList<T>* prependInternal(T item);
     SequenceList<T>* insertAtInternal(T item, size_t index);
     SequenceList<T>* RemoveLastInternal();
+    SequenceList<T>* RemoveFirstInternal();
 
     
     public:
@@ -39,6 +40,7 @@ class SequenceList : public Sequence<T>{
     Sequence<T>* insertAt(T item, size_t index) override;
     Sequence<T>* Concat(Sequence<T> *seq) const override;
     Sequence<T>* RemoveLast() override;
+    Sequence<T>* RemoveFirst() override;
 
     Sequence<T>* Map(T (*func)(T)) override;
     Sequence<T>* Where(bool (*predicate)(T)) override;

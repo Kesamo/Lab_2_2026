@@ -151,3 +151,17 @@ template<class T>
 Sequence<T>* SequenceList<T>::RemoveLast(){
     return Instance()->RemoveLastInternal();
 }
+
+template <class T>
+SequenceList<T>* SequenceList<T>::RemoveFirstInternal() {
+    if(list.GetLength() == 0){
+        throw EmptyListException();
+    }
+    list.removeFirst();
+    return this;
+}
+
+template <class T>
+Sequence<T>* SequenceList<T>::RemoveFirst() {
+    return Instance()->removeFirstInternal();
+}

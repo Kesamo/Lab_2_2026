@@ -172,3 +172,18 @@ template<class T>
 Sequence<T>* SequenceArray<T>::RemoveLast(){
     return Instance()->RemoveLastInternal();
 }
+
+template <class T>
+SequenceArray<T>* SequenceArray<T>::RemoveFirstInternal() {
+    size_t size = array.GetSize();
+    if (size == 0) throw EmptyListException();
+    for (size_t i = 0; i + 1 < size; ++i)
+        array.Set(i, array.Get(i + 1));
+    array.Resize(size - 1);
+    return this;
+}
+
+template <class T>
+Sequence<T>* SequenceArray<T>::RemoveFirst() {
+    return Instance()->removeFirstInternal();
+}

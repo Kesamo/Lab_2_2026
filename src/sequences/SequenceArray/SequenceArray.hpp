@@ -13,6 +13,7 @@ class SequenceArray : public Sequence<T>{
     SequenceArray<T>* prependInternal(T item);
     SequenceArray<T>* insertAtInternal(T item, size_t index);
     SequenceArray<T>* RemoveLastInternal();
+    SequenceArray<T>* RemoveFirstInternal();
     
     public:
 
@@ -40,6 +41,7 @@ class SequenceArray : public Sequence<T>{
     Sequence<T>* insertAt(T item, size_t index) override;
     Sequence<T>* Concat(Sequence<T> *list) const override;
     Sequence<T>* RemoveLast() override;
+    Sequence<T>* RemoveFirst() override;
 
     Sequence<T>* Map(T (*func)(T)) override;
     Sequence<T>* Where(bool (*predicate)(T)) override;

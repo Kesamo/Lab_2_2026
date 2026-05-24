@@ -40,6 +40,7 @@ public:
     size_t GetLength() const; 
 
     void RemoveLast();
+    void RemoveFirst();
 
     void append(T item); 
     void prepend(T item); 

@@ -19,6 +19,7 @@ class Sequence{
         virtual Sequence<T>* insertAt(T item, size_t index) = 0;
         virtual Sequence<T>* Concat(Sequence <T> *list) const = 0;
         virtual Sequence<T>* RemoveLast() = 0;
+        virtual Sequence<T>* RemoveFirst() = 0;
 
         virtual IEnumerator<T>* GetEnumerator() const= 0;
 
