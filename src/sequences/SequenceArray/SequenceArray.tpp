@@ -185,5 +185,5 @@ SequenceArray<T>* SequenceArray<T>::RemoveFirstInternal() {
 
 template <class T>
 Sequence<T>* SequenceArray<T>::RemoveFirst() {
-    return Instance()->removeFirstInternal();
+    return Instance()->RemoveFirstInternal();
 }
