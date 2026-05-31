@@ -20,6 +20,7 @@ class SequenceArray : public Sequence<T>{
     SequenceArray();
     SequenceArray(T* item, size_t count);
     SequenceArray(const SequenceArray<T>& other);
+    SequenceArray(size_t count);
     
     virtual SequenceArray<T>* Instance() = 0;
     virtual SequenceArray<T>* Clone() const = 0;
@@ -35,6 +36,7 @@ class SequenceArray : public Sequence<T>{
     T Get(size_t index) const override;
     size_t GetLength() const override;
     Sequence<T>* GetSubsequence(size_t startIndex, size_t endIndex) const override;
+    void Set(size_t index, T value);
     
     Sequence<T>* append(T value) override;
     Sequence<T>* prepend(T value) override;
@@ -46,6 +48,9 @@ class SequenceArray : public Sequence<T>{
     Sequence<T>* Map(T (*func)(T)) override;
     Sequence<T>* Where(bool (*predicate)(T)) override;
     Sequence<T>* Reduce(T (*func)(T, T), T starter) override;
+
+    T& operator [](size_t index);
+    const T& operator[](size_t index) const;
 };
 
 #include "SequenceArray.tpp"

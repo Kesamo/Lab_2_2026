@@ -11,10 +11,20 @@ SequenceArray<T>::SequenceArray(T* item, size_t count) : array(DynamicArray<T>(i
 template <class T>
 SequenceArray<T>::SequenceArray(const SequenceArray<T>& other) : array(DynamicArray<T>(other.array)){}
 
+template <class T>
+SequenceArray<T>::SequenceArray(size_t count) : array(DynamicArray<T>(count)) {}
 
 template <class T>
 T SequenceArray<T>::GetFirst() const {
      return array.Get(0);
+}
+
+template <class T>
+void SequenceArray<T>::Set(size_t index, T value){
+    if (index >= GetLength()){
+        throw IndexOutOfRangeException(index, GetLength()); 
+    }
+    return array.Set(index,value);
 }
 
 template <class T>
@@ -186,4 +196,14 @@ SequenceArray<T>* SequenceArray<T>::RemoveFirstInternal() {
 template <class T>
 Sequence<T>* SequenceArray<T>::RemoveFirst() {
     return Instance()->RemoveFirstInternal();
+}
+
+template <class T>
+T& SequenceArray<T>::operator[](size_t index) {
+    return array[index];
+}
+
+template <class T>
+const T& SequenceArray<T>::operator[](size_t index) const {
+    return array[index];
 }

@@ -157,7 +157,7 @@ SequenceList<T>* SequenceList<T>::RemoveFirstInternal() {
     if(list.GetLength() == 0){
         throw EmptyListException();
     }
-    list.removeFirst();
+    list.RemoveFirst();
     return this;
 }
 
